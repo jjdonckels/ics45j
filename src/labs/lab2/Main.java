@@ -158,7 +158,41 @@ public class Main {
 	 *           this: problem4_creditCardPayoff(new Scanner(System.in));
 	 */
 	public static void problem4_creditCardPayoff(Scanner in) {
-		// WRITE YOUR CODE HERE
+		double balance = 0;
+		System.out.print("What is your balance? ");
+		balance = in.nextDouble();
+		
+		double apr = 0;
+		System.out.print("What is the APR on the card? ");
+		apr = in.nextDouble();
+		// put apr into percentage
+		apr = apr / 100.0;
+		
+//		DEBUG
+//		System.out.println("DEBUG APR DECIMAL: " + apr);
+		
+		double monthlyPayment = 0;
+		System.out.print("What is the monthly payment you can make? ");
+		monthlyPayment = in.nextDouble();
+		
+		double i = apr / 365.0; // daily rate
+		
+		double denom = Math.log(1 + i);
+		
+		double exponent = Math.pow(1 + i,  30);
+		double exponentExpression = 1 - exponent;
+		
+		double scaledExponentExpression = (balance / monthlyPayment) * exponentExpression;
+		
+		double numer = Math.log(1 + scaledExponentExpression);
+		
+		double complexFraction = numer / denom;
+		
+		double numberOfMonths = (-1.0 / 30.0) * complexFraction;
+		
+		int roundedNumberOfMonths = (int) Math.ceil(numberOfMonths);
+		
+		System.out.print("It will take you " + roundedNumberOfMonths + " months to pay off this card.");
 	}
 	
 	
@@ -240,6 +274,15 @@ public class Main {
 //		problem2_formatPhoneNumber(new Scanner(System.in));
 		
 //		Problem 3 tests
-		problem3_calculateTotal(new Scanner(System.in));
+//		problem3_calculateTotal(new Scanner(System.in));
+		
+//		int rate = 17;
+//		
+//		double d = rate / 100.0;
+//		
+//		System.out.println(d);
+		
+//		Problem 4 test
+		problem4_creditCardPayoff(new Scanner(System.in));
 	}
 }
