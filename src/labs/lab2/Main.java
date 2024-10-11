@@ -106,7 +106,16 @@ public class Main {
 	 * 
 	 */
 	public static void problem2_formatPhoneNumber(Scanner in) {
-		// WRITE YOUR CODE HERE
+		System.out.print("Please enter a ten-digit phone number: ");
+		String unformattedNum = in.next();
+		
+		// build a new string with proper formatting
+		String formattedNum = "(";
+		formattedNum += unformattedNum.substring(0, 3) + ") "; // area code "(***) "
+		formattedNum += unformattedNum.substring(3, 6) + "-"; // middle digits to get to "(***) ***-
+		formattedNum += unformattedNum.substring(6); // last 4 digits to get "(***) ***-****"
+		
+		System.out.print(formattedNum);
 	}
 	
 	
@@ -203,12 +212,15 @@ public class Main {
 	
 	public static void main(String[] args)
 	{
-		System.out.println(problem1_getDollarsAndCents(2.95));
-		System.out.println(problem1_getDollarsAndCents(0));
-		System.out.println(problem1_getDollarsAndCents(0.95));
-		System.out.println(problem1_getDollarsAndCents(11.13));
-		System.out.println(problem1_getDollarsAndCents(6998));
-		System.out.println(problem1_getDollarsAndCents(4.34));
-		System.out.println(problem1_getDollarsAndCents(12345678910987.2));
+//		Problem 1 tests
+//		System.out.println(problem1_getDollarsAndCents(2.95));
+//		System.out.println(problem1_getDollarsAndCents(0));
+//		System.out.println(problem1_getDollarsAndCents(0.95));
+//		System.out.println(problem1_getDollarsAndCents(11.13));
+//		System.out.println(problem1_getDollarsAndCents(6998));
+//		System.out.println(problem1_getDollarsAndCents(4.34));
+//		System.out.println(problem1_getDollarsAndCents(12345678910987.2));
+		
+		problem2_formatPhoneNumber(new Scanner(System.in));
 	}
 }
