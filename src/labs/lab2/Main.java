@@ -129,7 +129,22 @@ public class Main {
 	 *           this: problem3_calculateTotal(new Scanner(System.in));
 	 */
 	public static void problem3_calculateTotal(Scanner in) {
-		// WRITE YOUR CODE HERE
+		final double TAX_RATE = 0.1;
+		final double SHIPPING_COST_PER_STICKER = 0.15;
+		System.out.print("Enter price per sticker: ");
+		double stickerPrice = in.nextDouble();
+		
+		System.out.print("Enter the number of stickers: ");
+		int stickerCount = in.nextInt();
+		
+		double totalStickerPrice = stickerPrice * stickerCount;
+		double tax = totalStickerPrice * TAX_RATE;
+		double shippingCost = stickerCount * SHIPPING_COST_PER_STICKER;
+		
+		double orderPrice = totalStickerPrice + tax + shippingCost;
+		
+		System.out.printf("Your total is: $%.2f", orderPrice);
+		
 	}
 	
 	
@@ -221,6 +236,10 @@ public class Main {
 //		System.out.println(problem1_getDollarsAndCents(4.34));
 //		System.out.println(problem1_getDollarsAndCents(12345678910987.2));
 		
-		problem2_formatPhoneNumber(new Scanner(System.in));
+//		Problem 2 tests
+//		problem2_formatPhoneNumber(new Scanner(System.in));
+		
+//		Problem 3 tests
+		problem3_calculateTotal(new Scanner(System.in));
 	}
 }
