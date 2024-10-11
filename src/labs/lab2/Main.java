@@ -18,7 +18,71 @@ public class Main {
 	 * "dollars: ..., cents: ..."
 	 */
 	public static String problem1_getDollarsAndCents(double amount) {
-		return ""; // FIX ME
+		/* METHOD 1
+		int numDollars = 0;
+		int numCents = 0;
+		
+		// check zero
+		if (amount != 0.0)
+		{
+			while (amount >= 1)
+			{
+				// take a dollar from the amount and add it to the dollar counter
+				amount--;
+				numDollars++;
+				
+				System.out.println("amount: " + amount + "\ndollars: " + numDollars);
+			}
+			
+			System.out.println("amount after dollars: " + amount);
+			// add all the cents to the cent counter
+			// round to nearest int to account for imperfect floating point precision
+			numCents = Math.round((float) amount * 100);
+		}
+		
+		return "dollars: " + numDollars + ", cents: " + numCents;
+		*/
+		
+		/* METHOD 2
+		int dollarCount = 0;
+		int centCount = 0;
+		
+		// check zero 
+		if (amount > 0.0)
+		{
+			// decrement by 1 cent until hitting floor(amount)
+			while (amount - (int)amount > 0.01)
+			{
+				centCount++;
+				amount -= 0.01;
+			}
+			
+			dollarCount = (int)amount;
+		}
+		
+		return "dollars: " + dollarCount + ", cents: " + centCount;
+		*/
+		
+		
+		// METHOD 3
+		// multiply amount by 100, and use / and % to get appropriate digits in proper spots
+		long dollarCount = 0;
+		long centCount = 0;
+		if (amount > 0.0)
+		{
+			long newAmount = (long) (amount * 100);
+			
+			// DEBUG
+			// System.out.println("\nnew amount: " + newAmount);
+		
+			// now newAmount contains just the number of total cents in the amount of money there was
+			
+			centCount = newAmount % 100;
+			
+			dollarCount = newAmount / 100;
+		}
+		
+		return "dollars: " + dollarCount + ", cents: " + centCount;
 	}
 	
 	
@@ -139,6 +203,12 @@ public class Main {
 	
 	public static void main(String[] args)
 	{
-		System.out.println("Hello there!");
+		System.out.println(problem1_getDollarsAndCents(2.95));
+		System.out.println(problem1_getDollarsAndCents(0));
+		System.out.println(problem1_getDollarsAndCents(0.95));
+		System.out.println(problem1_getDollarsAndCents(11.13));
+		System.out.println(problem1_getDollarsAndCents(6998));
+		System.out.println(problem1_getDollarsAndCents(4.34));
+		System.out.println(problem1_getDollarsAndCents(12345678910987.2));
 	}
 }
