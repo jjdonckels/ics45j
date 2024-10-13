@@ -206,7 +206,59 @@ public class Main {
 	 * @return	the changed string
 	 */
 	public static String problem6_withoutX2(String str) {
-		return ""; // FIX ME
+		boolean firstIsX = false;
+		boolean secondIsX = false;
+		
+		// edge case empty string
+		if (str.isEmpty())
+			return "";
+		
+		// when str length is 1
+		if (str.length() == 1)
+		{
+			if (str.charAt(0) == 'x')
+				return "";
+			else 
+				return str;
+		}
+		
+		// string will have at least length 2 so 
+		// we can check both of first two chars for 'x'
+		if (str.charAt(0) == 'x')
+			firstIsX = true;
+		if (str.charAt(1) == 'x')
+			secondIsX = true;
+		
+		// when str length is 2
+		if (str.length() == 2)
+		{			
+			// remove any x's 
+			String toReturn = "";
+			if (firstIsX && secondIsX)
+				return "";
+			else if (firstIsX)
+				toReturn += str.substring(1);
+			else if (secondIsX)
+				toReturn += str.substring(0, 1);
+			else 
+				toReturn += str;
+			
+			return toReturn;	
+				
+		}
+		
+		// when str length is more than 2
+		String returnMe = "";
+		if (firstIsX && secondIsX)
+			returnMe += str.substring(2);
+		else if (firstIsX)
+			returnMe += str.substring(1);
+		else if (secondIsX)
+			returnMe += str.substring(0, 1) + str.substring(2);
+		else 
+			returnMe += str;
+		
+		return returnMe;
 	}
 	
 	
@@ -221,7 +273,23 @@ public class Main {
 	 *         over, return 0
 	 */
 	public static int problem7_playBlackjack(int a, int b) {
-		return -1; // FIX ME
+		final int LIMIT = 21;
+		// both go over
+		if (a > LIMIT && b > LIMIT)
+			return 0;
+		if (a > LIMIT && b <= LIMIT)
+			return b;
+		if (b > LIMIT && a <= LIMIT)
+			return a;
+		
+		if (a == LIMIT || b == LIMIT)
+			return LIMIT;
+		
+		// reaching this spot means a and b are both < LIMIT
+		if (a > b)
+			return a;
+		else
+			return b;
 	}
 	
 	
@@ -286,28 +354,50 @@ public class Main {
 //		problem4_creditCardPayoff(new Scanner(System.in));
 		
 //		Problem 5 test
-		Boat b = new Boat(0, 0, 0);
-		b.move(50);
-
-		System.out.println(b.getX()); // returns 50.0
-		System.out.println(b.getY()); // returns 0.0
-		System.out.println(b.getDirection()); // returns 0.0
-
-		b.turn(360);
-		b.move(10);
-		System.out.println(b.getX()); // returns 60.0
-		System.out.println(b.getY()); // returns 0.0
-		System.out.println(b.getDirection()); // returns 360.0
-
-		b.turn(-2);
-		System.out.println(b.getX()); // returns 60.0
-		System.out.println(b.getY()); // returns 0.0
-		System.out.println(b.getDirection()); // returns 358.0
-
-		b.turn(-440);
-		b.move(255.3);
-		System.out.println(b.getX()); // returns 95.53089267510472
-		System.out.println(b.getY()); // returns -252.81543794972293
-		System.out.println(b.getDirection()); // returns -82.0
+//		Boat b = new Boat(0, 0, 0);
+//		b.move(50);
+//
+//		System.out.println(b.getX()); // returns 50.0
+//		System.out.println(b.getY()); // returns 0.0
+//		System.out.println(b.getDirection()); // returns 0.0
+//
+//		b.turn(360);
+//		b.move(10);
+//		System.out.println(b.getX()); // returns 60.0
+//		System.out.println(b.getY()); // returns 0.0
+//		System.out.println(b.getDirection()); // returns 360.0
+//
+//		b.turn(-2);
+//		System.out.println(b.getX()); // returns 60.0
+//		System.out.println(b.getY()); // returns 0.0
+//		System.out.println(b.getDirection()); // returns 358.0
+//
+//		b.turn(-440);
+//		b.move(255.3);
+//		System.out.println(b.getX()); // returns 95.53089267510472
+//		System.out.println(b.getY()); // returns -252.81543794972293
+//		System.out.println(b.getDirection()); // returns -82.0
+		
+//		Problem 6 test
+//		System.out.println(problem6_withoutX2("xHi"));
+//		System.out.println(problem6_withoutX2("Hxi"));
+//		System.out.println(problem6_withoutX2("Hi"));
+//		System.out.println(problem6_withoutX2("XHi"));
+//		System.out.println(problem6_withoutX2("").length());
+//		System.out.println(problem6_withoutX2("x").length());
+//		System.out.println(problem6_withoutX2("xx").length());
+//		System.out.println(problem6_withoutX2("xa"));
+//		System.out.println(problem6_withoutX2("ax"));
+//		System.out.println(problem6_withoutX2("xxa"));
+//		System.out.println(problem6_withoutX2("axx"));
+//		System.out.println(problem6_withoutX2("Xx"));
+//		System.out.println(problem6_withoutX2("xX"));
+//		System.out.println(problem6_withoutX2("XXx"));
+		
+//		Problem 7 test
+		System.out.println(problem7_playBlackjack(21, 19));
+		System.out.println(problem7_playBlackjack(19, 22));
+		System.out.println(problem7_playBlackjack(22, 22));
+		System.out.println(problem7_playBlackjack(21, 21));
 	}
 }
