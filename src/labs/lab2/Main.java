@@ -283,6 +283,31 @@ public class Main {
 //		System.out.println(d);
 		
 //		Problem 4 test
-		problem4_creditCardPayoff(new Scanner(System.in));
+//		problem4_creditCardPayoff(new Scanner(System.in));
+		
+//		Problem 5 test
+		Boat b = new Boat(0, 0, 0);
+		b.move(50);
+
+		System.out.println(b.getX()); // returns 50.0
+		System.out.println(b.getY()); // returns 0.0
+		System.out.println(b.getDirection()); // returns 0.0
+
+		b.turn(360);
+		b.move(10);
+		System.out.println(b.getX()); // returns 60.0
+		System.out.println(b.getY()); // returns 0.0
+		System.out.println(b.getDirection()); // returns 360.0
+
+		b.turn(-2);
+		System.out.println(b.getX()); // returns 60.0
+		System.out.println(b.getY()); // returns 0.0
+		System.out.println(b.getDirection()); // returns 358.0
+
+		b.turn(-440);
+		b.move(255.3);
+		System.out.println(b.getX()); // returns 95.53089267510472
+		System.out.println(b.getY()); // returns -252.81543794972293
+		System.out.println(b.getDirection()); // returns -82.0
 	}
 }

@@ -5,7 +5,9 @@ package labs.lab2;
  */
 public class Boat {
 
-	// ADD YOUR INSTANCE VARIABLES HERE
+	private double x;
+	private double y;
+	private double direction;
 
 	/**
 	 * Creates a boat with an initial position and direction angle.
@@ -15,7 +17,9 @@ public class Boat {
 	 * @param angle angle of the boat's direction (in degrees from x axis)
 	 */
 	public Boat(double x, double y, double angle) {
-		// FILL IN
+		this.x = x;
+		this.y = y;
+		direction = angle;
 	}
 
 
@@ -25,7 +29,7 @@ public class Boat {
 	 * @return the x coordinate of the boat's position
 	 */
 	public double getX() {
-		return -1.0; // FIX ME
+		return x;
 	}
 
 
@@ -35,7 +39,7 @@ public class Boat {
 	 * @return the y coordinate of the boat's position
 	 */
 	public double getY() {
-		return -1.0; // FIX ME
+		return y;
 	}
 
 
@@ -45,7 +49,7 @@ public class Boat {
 	 * @return the angle in which the boat is heading (in degrees)
 	 */
 	public double getDirection() {
-		return -1.0; // FIX ME
+		return direction;
 	}
 
 
@@ -56,7 +60,7 @@ public class Boat {
 	 *                counter-clockwise, negative ones are clockwise)
 	 */
 	public void turn(double degrees) {
-		// FILL IN
+		direction += degrees;
 	}
 
 
@@ -67,6 +71,8 @@ public class Boat {
 	 * @param distance the distance being traveled by the boat
 	 */
 	public void move(double distance) {
-		// FILL IN
+		double radDirection = direction * (Math.PI / 180.0); // convert direction from deg to rad
+		x += distance * Math.cos(radDirection);
+		y += distance * Math.sin(radDirection);
 	}
 }
