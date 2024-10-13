@@ -310,7 +310,53 @@ public class Main {
 	 * @return	a string describing its strength
 	 */
 	public static String problem8_assessPasswordStrength(String password) {
-		return ""; // FIX ME
+		String returnMe = "";
+		boolean onlyDigits = true;
+		boolean hasDigit = false;
+		boolean onlyLetters = true;
+		boolean hasLetter = false;
+		boolean hasSpecialChar = false;
+		
+		// go through password and analyze chars
+		for (int i = 0; i < password.length(); i++)
+		{
+			char currChar = password.charAt(i);
+			
+			if (Character.isLetter(currChar))
+			{
+				onlyDigits = false;
+				hasLetter = true;
+			}
+			if (Character.isDigit(currChar))
+			{
+				onlyLetters = false;
+				hasDigit = true;
+			}
+			if (!Character.isLetter(currChar) && !Character.isDigit(currChar))
+			{
+				hasSpecialChar = true;
+				onlyDigits = false;
+				onlyLetters = false;
+			}
+		}
+		
+//		boolean mixedChars = !onlyDigits && !onlyLetters && !hasSpecialChar;
+		
+		int len = password.length();
+		
+		if (onlyDigits && len < 8)
+			returnMe += "very weak";
+		else if (onlyLetters && len < 8)
+			returnMe += "weak";
+		else if (hasLetter && hasDigit && !hasSpecialChar&& len >= 8)
+			returnMe += "strong";
+		else if (hasLetter && hasDigit && hasSpecialChar && len >= 8)
+			returnMe += "very strong";
+		else 
+			returnMe += "medium";
+		
+		
+		return returnMe;
 	}
 	
 	
@@ -395,9 +441,18 @@ public class Main {
 //		System.out.println(problem6_withoutX2("XXx"));
 		
 //		Problem 7 test
-		System.out.println(problem7_playBlackjack(21, 19));
-		System.out.println(problem7_playBlackjack(19, 22));
-		System.out.println(problem7_playBlackjack(22, 22));
-		System.out.println(problem7_playBlackjack(21, 21));
+//		System.out.println(problem7_playBlackjack(21, 19));
+//		System.out.println(problem7_playBlackjack(19, 22));
+//		System.out.println(problem7_playBlackjack(22, 22));
+//		System.out.println(problem7_playBlackjack(21, 21));
+		
+//		Problem 8 test
+		System.out.println(problem8_assessPasswordStrength("12345"));
+		System.out.println(problem8_assessPasswordStrength("abcdef"));
+		System.out.println(problem8_assessPasswordStrength("abc123xyz"));
+		System.out.println(problem8_assessPasswordStrength("1337h@xor"));
+		System.out.println(problem8_assessPasswordStrength("1337h xor"));
+		System.out.println(problem8_assessPasswordStrength("123abc"));
+		
 	}
 }
