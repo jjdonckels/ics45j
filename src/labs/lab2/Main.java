@@ -369,7 +369,134 @@ public class Main {
 	 *           this: problem9_troubleshootCarIssues(new Scanner(System.in));
 	 */
 	public static void problem9_troubleshootCarIssues(Scanner in) {
-		// WRITE YOUR CODE HERE
+		final int INVALID = 0;
+		final int YES = 1;
+		final int NO = 2;
+		System.out.print("Is the car silent when you turn the key? ");
+		
+		String input = in.nextLine();
+		
+		int inputNum = analyzeInput(input);
+		
+		if (inputNum == YES)
+		{
+			System.out.print("Are the battery terminals corroded? ");
+			
+			input = in.nextLine();
+			inputNum = analyzeInput(input);
+			
+			if (inputNum == YES)
+			{
+				System.out.print("Clean terminals and try starting again.");
+				return;
+			}
+			else if (inputNum == NO)
+			{
+				System.out.print("Replace cables and try again.");
+				return;
+			}
+			else 
+			{
+				System.out.print("Invalid input. Exiting.");
+				return;
+			}
+		}
+		else if (inputNum == NO)
+		{
+			System.out.print("Does the car make a clicking noise? ");
+			
+			input = in.nextLine();
+			inputNum = analyzeInput(input);
+			
+			if (inputNum == YES)
+			{
+				System.out.print("Replace the battery.");
+				return;
+			}
+			else if (inputNum == NO)
+			{
+				System.out.print("Does the car crank up but fail to start? ");
+				
+				input = in.nextLine();
+				inputNum = analyzeInput(input);
+				
+				if (inputNum == YES)
+				{
+					System.out.print("Check spark plug connections.");
+					return;
+				}
+				else if (inputNum == NO)
+				{
+					System.out.print("Does the engine start and then die? ");
+					
+					input = in.nextLine();
+					inputNum = analyzeInput(input);
+					
+					if (inputNum == YES)
+					{
+						System.out.print("Does your car have fuel injection? ");
+						
+						input = in.nextLine();
+						inputNum = analyzeInput(input);
+						
+						if (inputNum == YES)
+						{
+							System.out.print("Get it in for service.");
+							return;
+						}
+						else if (inputNum == NO)
+						{
+							System.out.print("Check to ensure the choke is opening and closing.");
+							return;
+						}
+						else 
+						{
+							System.out.print("Invalid input. Exiting.");
+							return;
+						}
+					}
+					else if (inputNum == NO)
+					{
+						System.out.print("Get it in for service.");
+						return;
+					}
+					else 
+					{
+						System.out.print("Invalid input. Exiting.");
+						return;
+					}
+				}
+				else 
+				{
+					System.out.print("Invalid input. Exiting.");
+					return;
+				}
+			}
+			else 
+			{
+				System.out.print("Invalid input. Exiting.");
+				return;
+			}
+		}
+		else 
+		{
+			System.out.print("Invalid input. Exiting.");
+			return;
+		}
+		
+		
+	}
+	
+	private static int analyzeInput(String str)
+	{
+		if (!str.isEmpty())
+		{
+			if (str.substring(0, 1).toLowerCase().equals("y"))
+				return 1;
+			else if (str.substring(0, 1).toLowerCase().equals("n"))
+				return 2;
+		}
+		return 0;
 	}
 	
 	
@@ -447,12 +574,15 @@ public class Main {
 //		System.out.println(problem7_playBlackjack(21, 21));
 		
 //		Problem 8 test
-		System.out.println(problem8_assessPasswordStrength("12345"));
-		System.out.println(problem8_assessPasswordStrength("abcdef"));
-		System.out.println(problem8_assessPasswordStrength("abc123xyz"));
-		System.out.println(problem8_assessPasswordStrength("1337h@xor"));
-		System.out.println(problem8_assessPasswordStrength("1337h xor"));
-		System.out.println(problem8_assessPasswordStrength("123abc"));
+//		System.out.println(problem8_assessPasswordStrength("12345"));
+//		System.out.println(problem8_assessPasswordStrength("abcdef"));
+//		System.out.println(problem8_assessPasswordStrength("abc123xyz"));
+//		System.out.println(problem8_assessPasswordStrength("1337h@xor"));
+//		System.out.println(problem8_assessPasswordStrength("1337h xor"));
+//		System.out.println(problem8_assessPasswordStrength("123abc"));
+		
+//		Problem 9 test
+		problem9_troubleshootCarIssues(new Scanner(System.in));
 		
 	}
 }
