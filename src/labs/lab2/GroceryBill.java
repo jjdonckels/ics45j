@@ -2,15 +2,27 @@ package labs.lab2;
 
 public class GroceryBill {
 	
-	// ADD INSTANCE VARIABLES HERE
+	private double total;
+	private double discount;
 	
 	public GroceryBill(double itemTotal) {
-		// FILL IN
+		total = itemTotal;
+		
+		if (total < 10)
+			discount = 0;
+		else if (total <= 60)
+			discount = 5;
+		else if (total <= 150)
+			discount = 10;
+		else if (total <= 210)
+			discount = 15;
+		else 
+			discount = 20;
 	}
 	
 	
 	public double getDiscount() {
-		return -1.0; // FIX ME
+		return discount;
 	}
 	
 	
@@ -21,6 +33,8 @@ public class GroceryBill {
 	 * 2. A 10% sales tax
 	 */
 	public double getAmountOwed() {
-		return -1.0; // FIX ME
+		double activeDiscount = (discount / 100.0) * total;
+		double activeTotal = total - activeDiscount;
+		return activeTotal * 1.1;
 	}
 }

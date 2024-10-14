@@ -369,7 +369,7 @@ public class Main {
 	 *           this: problem9_troubleshootCarIssues(new Scanner(System.in));
 	 */
 	public static void problem9_troubleshootCarIssues(Scanner in) {
-		final int INVALID = 0;
+//		final int INVALID = 0;
 		final int YES = 1;
 		final int NO = 2;
 		System.out.print("Is the car silent when you turn the key? ");
@@ -582,7 +582,17 @@ public class Main {
 //		System.out.println(problem8_assessPasswordStrength("123abc"));
 		
 //		Problem 9 test
-		problem9_troubleshootCarIssues(new Scanner(System.in));
+//		problem9_troubleshootCarIssues(new Scanner(System.in));
+		
+//		Problem 10 test
+		GroceryBill bill1 = new GroceryBill(100); 
+		System.out.println(bill1.getDiscount()); // returns 10
+		System.out.println(bill1.getAmountOwed() + "\n"); // returns 99
+		
+		GroceryBill bill2 = new GroceryBill(85572.34);
+		System.out.println(bill2.getDiscount()); // returns 20
+		System.out.println(bill2.getAmountOwed()); // returns 75303.66
+		
 		
 	}
 }
