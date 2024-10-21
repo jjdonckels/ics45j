@@ -1,18 +1,21 @@
 package labs.lab3;
 
+import java.util.ArrayList;
+
 /**
  * This class is used to calculate the average, smallest, largest and range of
  * the values.
  */
 public class DataSet {
 	// ADD YOUR INSTANCE VARIABLES HERE
+	private ArrayList<Double> data;
 
 	/**
 	 * Constructs a DataSet object to hold the number of items, the extreme values
 	 * and the sum.
 	 */
 	public DataSet() {
-		// FILL IN
+		data = new ArrayList<Double>();
 	}
 
 	/**
@@ -21,7 +24,7 @@ public class DataSet {
 	 * @param x the input value
 	 */
 	public void add(double x) {
-		// FILL IN
+		data.add(x);
 	}
 	
 	/**
@@ -30,7 +33,11 @@ public class DataSet {
 	 * @return sum the sum of the data set
 	 */
 	public double getSum() {
-		return -1.0; // FIX ME
+		double sum = 0;
+		for (double d : data)
+			sum += d;
+		
+		return sum;
 	}
 
 	/**
@@ -41,7 +48,8 @@ public class DataSet {
 	public double getAverage() {
 		// Because sum is a double, sum / n will not throw an
 		// exception.
-		return -1.0; // FIX ME
+		
+		return getSum() / data.size();
 	}
 
 	/**
@@ -50,7 +58,20 @@ public class DataSet {
 	 * @return the smallest value in the data set
 	 */
 	public double getSmallest() {
-		return -1.0; // FIX ME
+		int minIndex = 0;
+		
+		// check if data only has one element
+		if (data.size() == 1)
+			return data.get(minIndex);
+		
+		// this is for when data has more than 1 element
+		for (int i = 1; i < data.size(); ++i)
+		{
+			if (data.get(i) < data.get(minIndex))
+				minIndex = i;
+		}
+		
+		return data.get(minIndex);
 	}
 
 	/**
@@ -59,7 +80,20 @@ public class DataSet {
 	 * @return the largest value in the data set
 	 */
 	public double getLargest() {
-		return -1.0; // FIX ME
+		int maxIndex = 0;
+		
+		// when data only has 1 element
+		if (data.size() == 1)
+			return data.get(maxIndex);
+		
+		// when data has more than 1 element
+		for (int i = 1; i < data.size(); ++i)
+		{
+			if (data.get(i) > data.get(maxIndex))
+				maxIndex = i;
+		}
+		
+		return data.get(maxIndex);
 	}
 
 	/**
@@ -68,7 +102,7 @@ public class DataSet {
 	 * @return the range of values in the data set
 	 */
 	public double getRange() {
-		return -1.0; // FIX ME
+		return getLargest() - getSmallest();
 	}
 
 	/**
@@ -77,6 +111,6 @@ public class DataSet {
 	 * @return n the total number of inputs
 	 */
 	public int getCount() {
-		return -1; // FIX ME
+		return data.size();
 	}
 }

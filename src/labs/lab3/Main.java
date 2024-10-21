@@ -253,13 +253,28 @@ public class Main {
 //		System.out.println(problem2_maxBlock("word----------word again"));
 		
 //		Problem 3 test
-		System.out.println("abXYab " + problem3_sameEnds("abXYab"));
-		System.out.println("xx " + problem3_sameEnds("xx"));
-		System.out.println("xxx " + problem3_sameEnds("xxx"));
-		System.out.println("Robert " + problem3_sameEnds("Robert"));
-		System.out.println("Robertr " + problem3_sameEnds("Robertr"));
-		System.out.println("RobertR " + problem3_sameEnds("RobertR"));
-		System.out.println("    four     " + problem3_sameEnds("    four     ").length());
+//		System.out.println("abXYab " + problem3_sameEnds("abXYab"));
+//		System.out.println("xx " + problem3_sameEnds("xx"));
+//		System.out.println("xxx " + problem3_sameEnds("xxx"));
+//		System.out.println("Robert " + problem3_sameEnds("Robert"));
+//		System.out.println("Robertr " + problem3_sameEnds("Robertr"));
+//		System.out.println("RobertR " + problem3_sameEnds("RobertR"));
+//		System.out.println("    four     " + problem3_sameEnds("    four     ").length());
 		
+//		Problem 4 Test
+		DataSet data = new DataSet();
+		data.add(40);
+		data.add(12.5);
+		data.add(-280.887);
+		data.add(9);
+		System.out.println(data.getSum());
+		System.out.println(data.getAverage());
+		System.out.println(data.getSmallest());
+		System.out.println(data.getLargest());
+		System.out.println(data.getRange());
+		System.out.println(data.getCount());
+		data.add(10); 
+		System.out.println(data.getSum());
+		System.out.println(data.getCount());
 	}
 }
