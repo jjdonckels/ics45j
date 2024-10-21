@@ -105,7 +105,35 @@ public class Main {
 	 * @return the length of the largest block in the string
 	 */
 	public static int problem2_maxBlock(String str) {
-		return -1; // FIX ME
+		// str is empty
+		if (str.isEmpty())
+			return 0;
+		
+		int maxBlockLen = 0;
+		int currBlockLen = 0;
+		int currIndex = 0;
+		
+		// traverse each index of str, keeping track of current block length
+		// when that block is finished, update max
+		while (currIndex <= str.length() - 1)
+		{
+			char currChar = str.charAt(currIndex);
+			currBlockLen = 1; // represents start of currChar block
+			// step to next index until different char is encountered
+			while (currIndex < str.length() - 1 && str.charAt(currIndex + 1) == currChar)
+			{
+				currBlockLen++;
+				currIndex++;
+			}
+			
+			// update max block length
+			if (currBlockLen > maxBlockLen)
+				maxBlockLen = currBlockLen;
+			
+			currIndex++; // move to next char
+		}
+		
+		return maxBlockLen;
 	}
 	
 	
@@ -179,6 +207,18 @@ public class Main {
 //		System.out.println(problem1_replace("9are9"));
 //		System.out.println(problem1_replace("aare are arek"));
 //		System.out.println(problem1_replace("aren't"));
+		
+//		Problem 2 test
+		System.out.println(problem2_maxBlock("hoopla"));
+		System.out.println(problem2_maxBlock("abbCCCddBBBxx"));
+		System.out.println(problem2_maxBlock(""));
+		System.out.println(problem2_maxBlock("abcdef"));
+		System.out.println(problem2_maxBlock("aaaabcdef"));
+		System.out.println(problem2_maxBlock("abcdefffff"));
+		System.out.println(problem2_maxBlock("aaabcdeffffff"));
+		System.out.println(problem2_maxBlock("aaaaaabcdeffff"));
+		System.out.println(problem2_maxBlock("111abcdef222233444444"));
+		System.out.println(problem2_maxBlock("word----------word again"));
 		
 	}
 }
