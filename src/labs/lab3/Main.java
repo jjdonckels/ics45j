@@ -146,7 +146,39 @@ public class Main {
 	 *         the string without overlapping.
 	 */
 	public static String problem3_sameEnds(String str) {
-		return ""; // FIX ME
+		if (str.length() <= 1)
+			return "";
+		
+		int mid = str.length() / 2;
+		
+		int currIndex = mid;
+		int maxLen = 0;
+		
+		// work from the middle of the string to the end,
+		// checking if an identical substring starts at the beginning at each 
+		// successive index, keeping track of the longest one to return
+		while (currIndex < str.length())
+		{ 
+			String currSuffix = str.substring(currIndex);
+			
+			int testIndex = str.indexOf(currSuffix);
+			
+			if (testIndex == 0)
+			{
+				// this means currSuffix occurs at the beginning of the string 
+				
+				int currSuffixLen = currSuffix.length();
+				// update maxLen 
+				if (currSuffixLen > maxLen && currSuffixLen <= str.length() / 2)
+					maxLen = currSuffixLen;
+				
+			}
+			
+			// move one index closer to the end of str
+			currIndex++;
+		}
+		
+		return str.substring(0, maxLen);
 	}
 	
 	
@@ -209,16 +241,25 @@ public class Main {
 //		System.out.println(problem1_replace("aren't"));
 		
 //		Problem 2 test
-		System.out.println(problem2_maxBlock("hoopla"));
-		System.out.println(problem2_maxBlock("abbCCCddBBBxx"));
-		System.out.println(problem2_maxBlock(""));
-		System.out.println(problem2_maxBlock("abcdef"));
-		System.out.println(problem2_maxBlock("aaaabcdef"));
-		System.out.println(problem2_maxBlock("abcdefffff"));
-		System.out.println(problem2_maxBlock("aaabcdeffffff"));
-		System.out.println(problem2_maxBlock("aaaaaabcdeffff"));
-		System.out.println(problem2_maxBlock("111abcdef222233444444"));
-		System.out.println(problem2_maxBlock("word----------word again"));
+//		System.out.println(problem2_maxBlock("hoopla"));
+//		System.out.println(problem2_maxBlock("abbCCCddBBBxx"));
+//		System.out.println(problem2_maxBlock(""));
+//		System.out.println(problem2_maxBlock("abcdef"));
+//		System.out.println(problem2_maxBlock("aaaabcdef"));
+//		System.out.println(problem2_maxBlock("abcdefffff"));
+//		System.out.println(problem2_maxBlock("aaabcdeffffff"));
+//		System.out.println(problem2_maxBlock("aaaaaabcdeffff"));
+//		System.out.println(problem2_maxBlock("111abcdef222233444444"));
+//		System.out.println(problem2_maxBlock("word----------word again"));
+		
+//		Problem 3 test
+		System.out.println("abXYab " + problem3_sameEnds("abXYab"));
+		System.out.println("xx " + problem3_sameEnds("xx"));
+		System.out.println("xxx " + problem3_sameEnds("xxx"));
+		System.out.println("Robert " + problem3_sameEnds("Robert"));
+		System.out.println("Robertr " + problem3_sameEnds("Robertr"));
+		System.out.println("RobertR " + problem3_sameEnds("RobertR"));
+		System.out.println("    four     " + problem3_sameEnds("    four     ").length());
 		
 	}
 }
