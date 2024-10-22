@@ -328,9 +328,27 @@ public class Main {
 //		printArr(problem6_post3(new int[] {3, 0, 0, 1, 2, 2, 4}));
 		
 //		Problem 7 test
-		printArr(problem7_arrayPattern(3));
-		printArr(problem7_arrayPattern(4));
-		printArr(problem7_arrayPattern(2));
+//		printArr(problem7_arrayPattern(3));
+//		printArr(problem7_arrayPattern(4));
+//		printArr(problem7_arrayPattern(2));
+		
+//		Problem 8 test
+		double [][] heights1 = {
+				{0, 1, 2}, 
+				{2, 5, 6}, 
+				{3, -2, 0}
+		};
+		
+		Terrain map = new Terrain(heights1);
+		print2D(map.getFloodMap(2));
+		System.out.println();
+		print2D(map.getFloodMap(0));
+		System.out.println();
+		print2D(map.getFloodMap(9));
+		System.out.println();
+		print2D(map.getFloodMap(-3));
+		
+		
 		
 		
 		
@@ -346,5 +364,17 @@ public class Main {
 		for (int n : arr)
 			System.out.print(n + " ");
 		System.out.println();
+	}
+	
+	private static void print2D(char[][] arr)
+	{
+		for (int i = 0; i < arr.length; ++i)
+		{
+			for (int j = 0; j < arr[0].length; ++j)
+			{
+				System.out.print(arr[i][j] + " ");
+			}
+			System.out.println();
+		}
 	}
 }

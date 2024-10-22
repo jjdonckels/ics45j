@@ -5,7 +5,7 @@ package labs.lab3;
  */
 public class Terrain {
 	
-	// ADD YOUR INSTANCE VARIABLES HERE
+	private double[][] heights;
 	
 	
 	/**
@@ -14,7 +14,24 @@ public class Terrain {
 	 * @param heights	heights of the terrain at different points in a square
 	 */
 	public Terrain(double[][] heights) {
-		// FILL IN
+		this.heights = new double[heights.length][heights[0].length];
+		for (int i = 0; i < heights.length; i++)
+		{
+			for (int j = 0; j < heights[0].length; j++)
+			{
+				this.heights[i][j] = heights[i][j];
+			}
+		}
+		
+		// print 2d array of heights
+//		for (int i = 0; i < this.heights.length; ++i)
+//		{
+//			for (int j = 0; j < this.heights[0].length; ++j)
+//			{
+//				System.out.print(this.heights[i][j] + " ");
+//			}
+//			System.out.println();
+//		}
 	}
 
 	
@@ -31,6 +48,19 @@ public class Terrain {
 	 * @return	the flood map
 	 */
 	public char[][] getFloodMap(double waterLevel) {
-		return new char[][] {}; // FIX ME
+		char[][] map = new char[heights.length][heights[0].length];
+		
+		for (int i = 0; i < heights.length; ++i)
+		{
+			for (int j = 0; j < heights[0].length; ++j)
+			{
+				if (waterLevel > heights[i][j])
+					map[i][j] = '*';
+				else 
+					map[i][j] = '-';
+			}
+		}
+		
+		return map;
 	}
 }
