@@ -5,7 +5,10 @@ package labs.lab3;
  */
 public class Purchase {
 
-	// ADD YOUR INSTANCE VARIABLES HERE
+	private String description;
+	private String clientName;
+	private double price;
+	private boolean boutiquePurchase;
 
 	
 	/**
@@ -17,26 +20,29 @@ public class Purchase {
 	 * @param boutiquePurchase	whether or not this was a boutique purchase
 	 */
 	public Purchase(String description, String clientName, double price, boolean boutiquePurchase) {
-		// FILL IN
+		this.description = description;
+		this.clientName = clientName;
+		this.price = price;
+		this.boutiquePurchase = boutiquePurchase;
 	}
 	
 	
 	public String getDescription() {
-		return ""; // FIX ME
+		return description;
 	}
 	
 	
 	public String getClientName() {
-		return ""; // FIX ME
+		return clientName;
 	}
 
 
 	public double getPrice() {
-		return -1.0; // FIX ME
+		return price;
 	}
 
 
 	public boolean isBoutiquePurchase() {
-		return false; // FIX ME
+		return boutiquePurchase;
 	}
 }

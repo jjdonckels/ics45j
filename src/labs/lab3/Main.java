@@ -333,20 +333,50 @@ public class Main {
 //		printArr(problem7_arrayPattern(2));
 		
 //		Problem 8 test
-		double [][] heights1 = {
-				{0, 1, 2}, 
-				{2, 5, 6}, 
-				{3, -2, 0}
-		};
+//		double [][] heights1 = {
+//				{0, 1, 2}, 
+//				{2, 5, 6}, 
+//				{3, -2, 0}
+//		};
+//		
+//		Terrain map = new Terrain(heights1);
+//		print2D(map.getFloodMap(2));
+//		System.out.println();
+//		print2D(map.getFloodMap(0));
+//		System.out.println();
+//		print2D(map.getFloodMap(9));
+//		System.out.println();
+//		print2D(map.getFloodMap(-3));
 		
-		Terrain map = new Terrain(heights1);
-		print2D(map.getFloodMap(2));
-		System.out.println();
-		print2D(map.getFloodMap(0));
-		System.out.println();
-		print2D(map.getFloodMap(9));
-		System.out.println();
-		print2D(map.getFloodMap(-3));
+//		Problem 9 test
+		DailySalesTally tally = new DailySalesTally();
+		tally.addPurchase(new Purchase("Day care", "Fluffy", 25.0, false));
+		tally.addPurchase(new Purchase("Bow tie collar", "Carl", 15.75, true));
+		System.out.println(tally.getTotalForClient("Fluffy")); // returns 25.0
+		System.out.println(tally.getTotalForClient("Carl")); // returns 14.96
+		System.out.println(tally.getTotalForClient("carl")); // returns 0
+		System.out.println(tally.getTotalForClient("Abby")); // returns 0
+		System.out.println(tally.getGrandTotal()); // returns 39.96
+		tally.addPurchase(new Purchase("Bath and blow dry", "Fluffy", 39.95, false));
+		tally.addPurchase(new Purchase("Dog biscuits", "Carl", 6.25, true));
+		System.out.println(tally.getTotalForClient("Fluffy")); // returns 60.96
+		System.out.println(tally.getTotalForClient("Carl")); // returns 20.30
+		System.out.println(tally.getGrandTotal()); // returns 81.26
+		tally.addPurchase(new Purchase("Nail trim", "Abby", 12.25, false));
+		tally.addPurchase(new Purchase("Argyle sweater", "Roger", 99.99, true));
+		System.out.println(tally.getTotalForClient("Fluffy")); // returns 60.96
+		System.out.println(tally.getTotalForClient("Carl")); // returns 20.30
+		System.out.println(tally.getTotalForClient("Abby")); // returns 12.25
+		System.out.println(tally.getTotalForClient("Roger")); // returns 94.99
+		System.out.println(tally.getGrandTotal()); // returns 188.50
+		tally.addPurchase(new Purchase("Bath and blow dry", "Carl", 39.95, false));
+		tally.addPurchase(new Purchase("Dog booties", "Fluffy", 27.13, true));
+		System.out.println(tally.getTotalForClient("Fluffy")); // returns 84.15
+		System.out.println(tally.getTotalForClient("Carl")); // returns 56.26
+		System.out.println(tally.getTotalForClient("Abby")); // returns 12.25
+		System.out.println(tally.getTotalForClient("Roger")); // returns 94.99
+		System.out.println(tally.getGrandTotal()); // returns 247.65
+		
 		
 		
 		
