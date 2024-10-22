@@ -222,7 +222,23 @@ public class Main {
 	 * 
 	 */
 	public static int[] problem6_post3(int[] nums) {
-		return null; // FIX ME
+		// find last occurrence of 3 in nums
+		int targetIndex = nums.length - 1;
+		while (nums[targetIndex] != 3)
+			targetIndex--;
+		
+		// now target Index is at the 3 closest to the end of nums 
+		int newSize = nums.length - 1 - targetIndex;
+		
+		int[] returnMe = new int[newSize];
+		
+		// fill up new array with all numbers after the last 3
+		for (int i = targetIndex + 1; i < nums.length; i++)
+		{
+			returnMe[i - (targetIndex + 1)] = nums[i];
+		}
+		
+		return returnMe;
 	}
 	
 	
@@ -294,5 +310,25 @@ public class Main {
 //		Problem 5 test
 //		problem5_officeCrowdControl(new Scanner(System.in), 20);
 		
+//		Problem 6 test
+		printArr(problem6_post3(new int[] {2, 3, 1, 2}));
+		printArr(problem6_post3(new int[] {3, 1, 3, 2}));
+		printArr(problem6_post3(new int[] {3, 3, 1, 2, 4}));
+		printArr(problem6_post3(new int[] {1, 3, 3}));
+		printArr(problem6_post3(new int[] {3, 0, 0, 1, 2, 2, 4}));
+		
+		
+	}
+	
+	private static void printArr(int[] arr)
+	{
+		if (arr.length == 0)
+		{
+			System.out.println("empty array");
+			return;
+		}
+		for (int n : arr)
+			System.out.print(n + " ");
+		System.out.println();
 	}
 }
