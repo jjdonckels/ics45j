@@ -1,14 +1,16 @@
 package labs.lab3;
 
+import java.util.ArrayList;
+
 public class Inventory {
-	// ADD YOUR INSTANCE VARIABLES HERE
+	private ArrayList<Item> itemList;
 	
 	
 	/**
 	 * Constructs a new Inventory
 	 */
 	public Inventory() {
-		// FILL IN
+		itemList = new ArrayList<Item>();
 	}
 	
 	
@@ -21,7 +23,28 @@ public class Inventory {
 	 * @param item	item to add/update
 	 */
 	public void addOrUpdateItem(Item item) {
-		// FILL IN
+		boolean itemExists = false;
+		int itemIndex = -1;
+		
+		// loop through item list and see if it exists
+		for (int i = 0; i < itemList.size(); ++i)
+		{
+			if (itemList.get(i).getDescription().equals(item.getDescription()))
+			{
+				itemExists = true;
+				itemIndex = i;
+				break;
+			}
+		}
+		
+		// item doesn't already exist and needs to be added
+		if (!itemExists)
+			itemList.add(item);
+		else  // item already exists so it just gets updated
+		{
+			itemList.get(itemIndex).setCurrentStock(item.getCurrentStock());
+			itemList.get(itemIndex).setTargetStock(item.getTargetStock());
+		}
 	}
 	
 	
@@ -31,7 +54,18 @@ public class Inventory {
 	 * @param description	description of item to remove
 	 */
 	public void removeItemWithDescription(String description) {
-		// FILL IN
+		
+		// loop through item list and remove it if it exists
+		for (int i = 0; i < itemList.size(); ++i)
+		{
+			if (itemList.get(i).getDescription().equals(description))
+			{
+				itemList.remove(i);
+				return;
+			}
+		}
+		
+		return;
 	}
 	
 	
@@ -44,7 +78,24 @@ public class Inventory {
 	 * "No items under-stocked".
 	 */
 	public String getUnderstockReport() {
-		return ""; // FIX ME
+		String returnMe = "";
+		
+		// go through inventory and see what's understocked
+		for (int i = 0; i < itemList.size(); ++i)
+		{
+			int stockDifference = itemList.get(i).getTargetStock() - itemList.get(i).getCurrentStock();
+			if (stockDifference > 0)
+			{
+				returnMe += "Order " + stockDifference + " more of " + 
+							itemList.get(i).getDescription() + " | ";
+			}
+		}
+		
+		if (returnMe.isEmpty())
+			return "No items under-stocked";
+		else 
+			return returnMe.substring(0, returnMe.length() - 3);
+		// returns everything but last 3 characters which would be " | " and isn't needed at the end
 	}
 	
 	
@@ -57,6 +108,23 @@ public class Inventory {
 	 * "No items over-stocked".
 	 */
 	public String getOverstockReport() {
-		return ""; // FIX ME
+		String returnMe = "";
+		
+		// go through inventory and see what's overstocked
+		for (int i = 0; i < itemList.size(); ++i)
+		{
+			int stockDifference = itemList.get(i).getCurrentStock() - itemList.get(i).getTargetStock();
+			if (stockDifference > 0)
+			{
+				returnMe += itemList.get(i).getDescription() + " over-stocked by " + 
+							stockDifference + " items | ";
+			}
+		}
+		
+		if (returnMe.isEmpty())
+			return "No items over-stocked";
+		else 
+			return returnMe.substring(0, returnMe.length() - 3);
+		// returns everything but last 3 characters which would be " | " and isn't needed at the end
 	}
 }

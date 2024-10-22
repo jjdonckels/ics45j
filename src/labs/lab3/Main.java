@@ -349,33 +349,62 @@ public class Main {
 //		print2D(map.getFloodMap(-3));
 		
 //		Problem 9 test
-		DailySalesTally tally = new DailySalesTally();
-		tally.addPurchase(new Purchase("Day care", "Fluffy", 25.0, false));
-		tally.addPurchase(new Purchase("Bow tie collar", "Carl", 15.75, true));
-		System.out.println(tally.getTotalForClient("Fluffy")); // returns 25.0
-		System.out.println(tally.getTotalForClient("Carl")); // returns 14.96
-		System.out.println(tally.getTotalForClient("carl")); // returns 0
-		System.out.println(tally.getTotalForClient("Abby")); // returns 0
-		System.out.println(tally.getGrandTotal()); // returns 39.96
-		tally.addPurchase(new Purchase("Bath and blow dry", "Fluffy", 39.95, false));
-		tally.addPurchase(new Purchase("Dog biscuits", "Carl", 6.25, true));
-		System.out.println(tally.getTotalForClient("Fluffy")); // returns 60.96
-		System.out.println(tally.getTotalForClient("Carl")); // returns 20.30
-		System.out.println(tally.getGrandTotal()); // returns 81.26
-		tally.addPurchase(new Purchase("Nail trim", "Abby", 12.25, false));
-		tally.addPurchase(new Purchase("Argyle sweater", "Roger", 99.99, true));
-		System.out.println(tally.getTotalForClient("Fluffy")); // returns 60.96
-		System.out.println(tally.getTotalForClient("Carl")); // returns 20.30
-		System.out.println(tally.getTotalForClient("Abby")); // returns 12.25
-		System.out.println(tally.getTotalForClient("Roger")); // returns 94.99
-		System.out.println(tally.getGrandTotal()); // returns 188.50
-		tally.addPurchase(new Purchase("Bath and blow dry", "Carl", 39.95, false));
-		tally.addPurchase(new Purchase("Dog booties", "Fluffy", 27.13, true));
-		System.out.println(tally.getTotalForClient("Fluffy")); // returns 84.15
-		System.out.println(tally.getTotalForClient("Carl")); // returns 56.26
-		System.out.println(tally.getTotalForClient("Abby")); // returns 12.25
-		System.out.println(tally.getTotalForClient("Roger")); // returns 94.99
-		System.out.println(tally.getGrandTotal()); // returns 247.65
+//		DailySalesTally tally = new DailySalesTally();
+//		tally.addPurchase(new Purchase("Day care", "Fluffy", 25.0, false));
+//		tally.addPurchase(new Purchase("Bow tie collar", "Carl", 15.75, true));
+//		System.out.println(tally.getTotalForClient("Fluffy")); // returns 25.0
+//		System.out.println(tally.getTotalForClient("Carl")); // returns 14.96
+//		System.out.println(tally.getTotalForClient("carl")); // returns 0
+//		System.out.println(tally.getTotalForClient("Abby")); // returns 0
+//		System.out.println(tally.getGrandTotal()); // returns 39.96
+//		tally.addPurchase(new Purchase("Bath and blow dry", "Fluffy", 39.95, false));
+//		tally.addPurchase(new Purchase("Dog biscuits", "Carl", 6.25, true));
+//		System.out.println(tally.getTotalForClient("Fluffy")); // returns 60.96
+//		System.out.println(tally.getTotalForClient("Carl")); // returns 20.30
+//		System.out.println(tally.getGrandTotal()); // returns 81.26
+//		tally.addPurchase(new Purchase("Nail trim", "Abby", 12.25, false));
+//		tally.addPurchase(new Purchase("Argyle sweater", "Roger", 99.99, true));
+//		System.out.println(tally.getTotalForClient("Fluffy")); // returns 60.96
+//		System.out.println(tally.getTotalForClient("Carl")); // returns 20.30
+//		System.out.println(tally.getTotalForClient("Abby")); // returns 12.25
+//		System.out.println(tally.getTotalForClient("Roger")); // returns 94.99
+//		System.out.println(tally.getGrandTotal()); // returns 188.50
+//		tally.addPurchase(new Purchase("Bath and blow dry", "Carl", 39.95, false));
+//		tally.addPurchase(new Purchase("Dog booties", "Fluffy", 27.13, true));
+//		System.out.println(tally.getTotalForClient("Fluffy")); // returns 84.15
+//		System.out.println(tally.getTotalForClient("Carl")); // returns 56.26
+//		System.out.println(tally.getTotalForClient("Abby")); // returns 12.25
+//		System.out.println(tally.getTotalForClient("Roger")); // returns 94.99
+//		System.out.println(tally.getGrandTotal()); // returns 247.65
+		
+//		Problem 10 test
+		Inventory inventory = new Inventory();
+		inventory.addOrUpdateItem(new Item("plaid bow tie collar", 10, 9));
+		inventory.addOrUpdateItem(new Item("blue dog booties", 20, 20));
+		inventory.addOrUpdateItem(new Item("pink dog booties", 20, 25));
+		inventory.addOrUpdateItem(new Item("multi-colored leash", 5, 0));
+		inventory.addOrUpdateItem(new Item("beige dog bed, x-large", 4, 0));
+		inventory.addOrUpdateItem(new Item("rawhide bone, small", 50, 50));
+		inventory.addOrUpdateItem(new Item("stuffed squirrel", 12, 16));
+		
+		System.out.println(inventory.getUnderstockReport() + "\n");
+		System.out.println(inventory.getOverstockReport() + "\n");
+		
+		inventory.removeItemWithDescription("multi-colored leash");
+		inventory.removeItemWithDescription("purple harness");
+		inventory.removeItemWithDescription("stuffed squirrel");
+		
+		System.out.println(inventory.getUnderstockReport() + "\n");
+		System.out.println(inventory.getOverstockReport() + "\n");
+		
+		inventory.addOrUpdateItem(new Item("pink dog booties", 15, 15));
+		inventory.addOrUpdateItem(new Item("plaid bow tie collar", 9, 10));
+		inventory.addOrUpdateItem(new Item("beige dog bed, x-large", 1, 4));
+		
+		System.out.println(inventory.getUnderstockReport() + "\n");
+		System.out.println(inventory.getOverstockReport() + "\n");
+		
+		
 		
 		
 		

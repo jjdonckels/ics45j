@@ -4,7 +4,9 @@ package labs.lab3;
  * Represents an item in the inventory
  */
 public class Item {
-	// ADD YOUR INSTANCE VARIABLES EHRE
+	private String description;
+	private int targetStock;
+	private int currentStock;
 	
 	
 	/**
@@ -15,7 +17,9 @@ public class Item {
 	 * @param currentStock	how many of the item is currently in stock
 	 */
 	public Item(String description, int targetStock, int currentStock) {
-		// FILL IN
+		this.description = description;
+		this.targetStock = targetStock;
+		this.currentStock = currentStock;
 	}
 	
 	
@@ -25,7 +29,7 @@ public class Item {
 	 * @return	a string description of the item
 	 */
 	public String getDescription() {
-		return ""; // FIX ME
+		return description;
 	}
 	
 	
@@ -35,7 +39,7 @@ public class Item {
 	 * @return	how many of the item should be kept in stock
 	 */
 	public int getTargetStock() {
-		return -1; // FIX ME
+		return targetStock;
 	}
 	
 	
@@ -45,7 +49,7 @@ public class Item {
 	 * @return	how many of the item is currently in stock
 	 */
 	public int getCurrentStock() {
-		return -1; // FIX ME
+		return currentStock;
 	}
 	
 	
@@ -55,7 +59,7 @@ public class Item {
 	 * @param targetStock	how many of the item should be kept in stock
 	 */
 	public void setTargetStock(int targetStock) {
-		// FILL IN
+		this.targetStock = targetStock;
 	}
 	
 	
@@ -65,6 +69,6 @@ public class Item {
 	 * @param currentStock	how many of the item is currently in stock
 	 */
 	public void setCurrentStock(int currentStock) {
-		// FILL IN
+		this.currentStock = currentStock;
 	}
 }
