@@ -253,7 +253,17 @@ public class Main {
 	 * @return patterned array
 	 */
 	public static int[] problem7_arrayPattern(int n) {
-		return null; // FIX ME
+		int[] returnMe = new int[n * (n + 1) / 2];
+		int currIndex = 0;
+		for (int i = 1; i <= n; ++i)
+		{
+			for (int j = 1; j <= i; ++j)
+			{
+				returnMe[currIndex++] = j;
+			}
+		}
+		
+		return returnMe;
 	}
 	
 	public static void main(String[] args)
@@ -311,11 +321,17 @@ public class Main {
 //		problem5_officeCrowdControl(new Scanner(System.in), 20);
 		
 //		Problem 6 test
-		printArr(problem6_post3(new int[] {2, 3, 1, 2}));
-		printArr(problem6_post3(new int[] {3, 1, 3, 2}));
-		printArr(problem6_post3(new int[] {3, 3, 1, 2, 4}));
-		printArr(problem6_post3(new int[] {1, 3, 3}));
-		printArr(problem6_post3(new int[] {3, 0, 0, 1, 2, 2, 4}));
+//		printArr(problem6_post3(new int[] {2, 3, 1, 2}));
+//		printArr(problem6_post3(new int[] {3, 1, 3, 2}));
+//		printArr(problem6_post3(new int[] {3, 3, 1, 2, 4}));
+//		printArr(problem6_post3(new int[] {1, 3, 3}));
+//		printArr(problem6_post3(new int[] {3, 0, 0, 1, 2, 2, 4}));
+		
+//		Problem 7 test
+		printArr(problem7_arrayPattern(3));
+		printArr(problem7_arrayPattern(4));
+		printArr(problem7_arrayPattern(2));
+		
 		
 		
 	}
