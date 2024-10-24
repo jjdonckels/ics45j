@@ -4,7 +4,12 @@ package labs.lab4;
  * Represents a student and their relevant info
  */
 public class Student {
-	// ADD YOUR INSTANCE VARIABLES HERE
+	private static int idNum = 1;
+	
+	private int id;
+	private String name;
+	private double gpa;
+	private boolean honors;
 	
 	
 	/**
@@ -14,7 +19,10 @@ public class Student {
 	 * @param name	student name
 	 */
 	public Student(String name) {
-		// FILL IN
+		id = idNum++;
+		this.name = name;
+		gpa = 0.0;
+		honors = false;
 	}
 	
 	
@@ -24,7 +32,7 @@ public class Student {
 	 * @return	student name
 	 */
 	public String getName() {
-		return ""; // FIX ME
+		return name;
 	}
 	
 	
@@ -34,7 +42,8 @@ public class Student {
 	 * @param name	new name
 	 */
 	public void setName(String name) {
-		// FILL IN
+		if (!name.isEmpty())
+			this.name = name;
 	}
 	
 	/**
@@ -43,7 +52,7 @@ public class Student {
 	 * @return	student ID
 	 */
 	public int getId() {
-		return -1; // FIX ME
+		return id;
 	}
 	
 	
@@ -53,7 +62,7 @@ public class Student {
 	 * @return	student GPA
 	 */
 	public double getGPA() {
-		return -1.0; // FIX ME
+		return gpa;
 	}
 	
 	
@@ -64,7 +73,12 @@ public class Student {
 	 * @param gpa	new GPA
 	 */
 	public void setGPA(double gpa) {
-		// FILL IN
+		if (gpa >= 0 && gpa <= 4.0)
+			this.gpa = gpa;
+		if (gpa >= 3.5)
+			honors = true;
+		else 
+			honors = false;
 	}
 	
 	
@@ -74,6 +88,6 @@ public class Student {
 	 * @return	whether or not this student is an honors student
 	 */
 	public boolean isHonorsStudent() {
-		return false; // FIX ME
+		return honors;
 	}
 }
