@@ -34,7 +34,6 @@ public class DailySalesTally {
 			}
 		}
 		clientList.add(p.getClientName()); // add name to list if not already found there
-		
 	}
 	
 	
@@ -46,6 +45,7 @@ public class DailySalesTally {
 	 */
 	public double getTotalForClient(String clientName) {
 		double total = 0;
+		boolean firstPurchase = true;
 		
 		// go through each sale in the list and add to the total each time 
 		// one of the sales is for the desired client,
@@ -61,13 +61,21 @@ public class DailySalesTally {
 				if (salesList.get(i).isBoutiquePurchase())
 					currPrice *= (1.0 - BOUTIQUE_DISCOUNT);
 				
-				// check for loyalty discount by seeing if there is a total 
-				// yet; in other words, the first purchase will start with 
-				// a total of 0, but anything after the first purchase has 
-				// a nonzero total already so we know where to apply the loyalty 
-				// discount
-				if (total > 0)
+				// check for loyalty discount by seeing if client name is in list
+				// and if the first purchase has been logged yet
+				boolean found = false;
+				for (int k = 0; k < clientList.size(); ++k)
+				{
+					if (clientList.get(k).equals(clientName))
+					{
+						found = true;
+						break;
+					}
+				}
+				if (found && !firstPurchase)
 					currPrice *= (1 - LOYALTY_DISCOUNT);
+				else 
+					firstPurchase = false;
 				
 				// any discounts have been applied, so now we can add to total
 				total += currPrice;

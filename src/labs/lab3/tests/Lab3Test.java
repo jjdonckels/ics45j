@@ -322,6 +322,79 @@ public class Lab3Test {
 	}
 	
 	@Test
+	public void problem9_3() {
+	    DailySalesTally tally = new DailySalesTally();
+	    tally.addPurchase(new Purchase("Dog treats", "Lucy", 0.0, true));
+	    tally.addPurchase(new Purchase("Day care", "Oscar", 25.0, false));
+	    tally.addPurchase(new Purchase("Bow tie", "Lucy", 10.0, true));
+	    tally.addPurchase(new Purchase("Grooming", "Oscar", 50.0, false));
+
+	    assertEquals(8.55, tally.getTotalForClient("Lucy"), EPSILON);
+	    assertEquals(70.0, tally.getTotalForClient("Oscar"), EPSILON);
+	    assertEquals(78.55, tally.getGrandTotal(), EPSILON);
+
+	    tally.addPurchase(new Purchase("Free consultation", "Lucy", 0.0, false));
+	    tally.addPurchase(new Purchase("Boutique toy", "Oscar", 15.0, true));
+
+	    assertEquals(8.55, tally.getTotalForClient("Lucy"), EPSILON);
+	    assertEquals(82.825, tally.getTotalForClient("Oscar"), EPSILON);
+	    assertEquals(91.375, tally.getGrandTotal(), EPSILON);
+
+	    tally.addPurchase(new Purchase("Premium leash", "Lucy", 30.0, true));
+
+	    assertEquals(34.2, tally.getTotalForClient("Lucy"), EPSILON);
+	    assertEquals(117.025, tally.getGrandTotal(), EPSILON);
+
+	    tally.addPurchase(new Purchase("Nail trim", "Oscar", 15.0, false));
+
+	    assertEquals(96.325, tally.getTotalForClient("Oscar"), EPSILON);
+	    assertEquals(130.525, tally.getGrandTotal(), EPSILON);
+
+	    tally.addPurchase(new Purchase("Dog food", "Lucy", 25.0, false));
+
+	    assertEquals(56.7, tally.getTotalForClient("Lucy"), EPSILON);
+	    assertEquals(153.025, tally.getGrandTotal(), EPSILON);
+	}
+	
+	@Test
+	public void problem9_5() {
+	    DailySalesTally tally = new DailySalesTally();
+	    tally.addPurchase(new Purchase("Free collar", "Rocky", 0.0, true));
+	    tally.addPurchase(new Purchase("Spa treatment", "Duke", 100.0, false));
+	    tally.addPurchase(new Purchase("Boutique dog bed", "Rocky", 50.0, true));
+	    tally.addPurchase(new Purchase("Dog biscuits", "Duke", 5.0, true));
+
+	    assertEquals(42.75, tally.getTotalForClient("Rocky"), EPSILON);
+	    assertEquals(104.275, tally.getTotalForClient("Duke"), EPSILON);
+	    assertEquals(147.025, tally.getGrandTotal(), EPSILON);
+
+	    tally.addPurchase(new Purchase("Nail trim", "Rocky", 25.0, false));
+
+	    assertEquals(65.25, tally.getTotalForClient("Rocky"), EPSILON);
+	    assertEquals(169.525, tally.getGrandTotal(), EPSILON);
+
+	    tally.addPurchase(new Purchase("Free dog food", "Duke", 0.0, false));
+
+	    assertEquals(104.275, tally.getTotalForClient("Duke"), EPSILON);
+	    assertEquals(169.525, tally.getGrandTotal(), EPSILON);
+
+	    tally.addPurchase(new Purchase("Dog bandana", "Rocky", 15.0, true));
+
+	    assertEquals(78.075, tally.getTotalForClient("Rocky"), EPSILON);
+	    assertEquals(182.35, tally.getGrandTotal(), EPSILON);
+
+	    tally.addPurchase(new Purchase("Grooming", "Rocky", 40.0, false));
+
+	    assertEquals(114.075, tally.getTotalForClient("Rocky"), EPSILON);
+	    assertEquals(218.35, tally.getGrandTotal(), EPSILON);
+
+	    tally.addPurchase(new Purchase("Dog toy", "Duke", 20.0, false));
+
+	    assertEquals(122.275, tally.getTotalForClient("Duke"), EPSILON);
+	    assertEquals(236.35, tally.getGrandTotal(), EPSILON);
+	}
+	
+	@Test
 	public void problem10() {
 		Inventory inventory = new Inventory();
 		assertEquals("No items under-stocked", inventory.getUnderstockReport());
