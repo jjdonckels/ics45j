@@ -6,8 +6,10 @@ import java.awt.Point;
  * A class for simulating a robot wandering on a 10 x 10 plane.
  */
 public class Robot {
+	private static final int BOUNDARY = 5;
 	
-	// ADD YOUR INSTANCE VARIABLES HERE
+	private Point pos;
+	private String direction;
 
 	
 	/**
@@ -15,7 +17,8 @@ public class Robot {
 	 * and facing north
 	 */
 	public Robot() {
-		// FILL IN
+		pos = new Point();
+		direction = "N";
 	}
 	
 
@@ -23,7 +26,14 @@ public class Robot {
 	 * Changes the direction but not the location
 	 */
 	public void turnLeft() {
-		// FILL IN
+		if (direction.equals("N"))
+			direction = "W";
+		else if (direction.equals("W"))
+			direction = "S";
+		else if (direction.equals("S"))
+			direction = "E";
+		else if (direction.equals("E"))
+			direction = "N";
 	}
 	
 
@@ -31,7 +41,14 @@ public class Robot {
 	 * Changes the direction but not the location
 	 */
 	public void turnRight() {
-		// FILL IN
+		if (direction.equals("N"))
+			direction = "E";
+		else if (direction.equals("E"))
+			direction = "S";
+		else if (direction.equals("S"))
+			direction = "W";
+		else if (direction.equals("W"))
+			direction = "N";
 	}
 
 	
@@ -48,7 +65,19 @@ public class Robot {
 	 * @return	true if the robot is still on the plane, false otherwise
 	 */
 	public boolean move() {
-		return false; // FIX ME
+		if (direction.equals("N"))
+			pos.translate(0,  1);
+		else if (direction.equals("W"))
+			pos.translate(-1, 0);
+		else if (direction.equals("S"))
+			pos.translate(0, -1);
+		else if (direction.equals("E"))
+			pos.translate(1, 0);
+		
+		boolean validX = ((int) Math.abs(pos.getX())) <= BOUNDARY;
+		boolean validY = ((int) Math.abs(pos.getY())) <= BOUNDARY;
+		
+		return validX && validY;		
 	}
 
 	
@@ -58,7 +87,7 @@ public class Robot {
 	 * @return	robot's current location
 	 */
 	public Point getLocation() {
-		return new Point(0, 0); // FIX ME
+		return pos;
 	}
 
 	
@@ -68,6 +97,6 @@ public class Robot {
 	 * @return	the robot's direction
 	 */
 	public String getDirection() {
-		return ""; // FIX ME
+		return direction;
 	}
 }
