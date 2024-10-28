@@ -12,7 +12,11 @@ public class StudentTest {
 	 */
 	@Test
     public void testConstructor() {
-		// FILL IN
+		Student s1 = new Student("Jack");
+		assertEquals(true, s1.getName().equals("Jack"));
+		
+		Student s2 = new Student("Jill");
+		assertEquals(true, s2.getName().equals("Jill"));
     }
 
 	
@@ -21,7 +25,15 @@ public class StudentTest {
 	 */
 	@Test
     public void testName() {
-		// FILL IN
+		Student s1 = new Student("Timothy");
+		
+		assertEquals(true, s1.getName().equals("Timothy"));
+		
+		s1.setName("Amanda");
+		assertEquals(true, s1.getName().equals("Amanda"));
+		
+		s1.setName("");
+		assertEquals(true, s1.getName().equals("Amanda"));
     }
 	
 	
@@ -30,7 +42,19 @@ public class StudentTest {
 	 */
 	@Test
     public void testId() {
-		// FILL IN
+		Student s1 = new Student("John");
+		
+		int prevId = s1.getId();
+		
+		Student s2 = new Student("Jacob");
+		
+		assertEquals(prevId + 1, s2.getId());
+		
+		prevId = s2.getId();
+		
+		Student s3 = new Student("Jamie");
+		
+		assertEquals(prevId + 1, s3.getId());
     }
 	
 	
@@ -39,7 +63,21 @@ public class StudentTest {
 	 */
 	@Test
     public void testGPA() {
-		// FILL IN
+		Student s1 = new Student("Rain man");
+		
+		assertEquals(true, s1.getGPA() == 0);
+		
+		s1.setGPA(3.3);
+		
+		assertEquals(true, s1.getGPA() == 3.3);
+		
+		s1.setGPA(7.3);
+		
+		assertEquals(true, s1.getGPA() == 3.3);
+		
+		s1.setGPA(4.0);
+		
+		assertEquals(true, s1.getGPA() == 4.0);
     }
 	
 	
@@ -48,6 +86,18 @@ public class StudentTest {
 	 */
 	@Test
     public void testHonors() {
-		// FILL IN
+		Student s1 = new Student("Sheldon");
+		
+		s1.setGPA(3.4);
+		assertEquals(false, s1.isHonorsStudent());
+		
+		s1.setGPA(3.5);
+		assertEquals(true, s1.isHonorsStudent());
+		
+		s1.setGPA(4.0);
+		assertEquals(true, s1.isHonorsStudent());
+		
+		s1.setGPA(2.0);
+		assertEquals(false, s1.isHonorsStudent());
     }
 }

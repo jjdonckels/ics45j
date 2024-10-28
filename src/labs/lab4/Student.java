@@ -75,6 +75,10 @@ public class Student {
 	public void setGPA(double gpa) {
 		if (gpa >= 0 && gpa <= 4.0)
 			this.gpa = gpa;
+		else 
+			return;
+		
+		// update honors status based on new gpa
 		if (gpa >= 3.5)
 			honors = true;
 		else 
