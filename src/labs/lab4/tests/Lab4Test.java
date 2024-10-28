@@ -106,6 +106,29 @@ public class Lab4Test {
 		lock.turnLeft(21);
 		lock.turnRight(7);
 		assertFalse(lock.open());
+		
+		ComboLock lock2 = new ComboLock(38, 14, 7);
+		lock2.turnRight(42);
+		lock2.turnLeft(56);
+		lock2.turnRight(87);
+		assertTrue(lock2.open());
+		lock2.reset();
+		lock2.turnRight(3);
+		lock2.turnLeft(23);
+		lock2.turnRight(44);
+		assertFalse(lock2.open());
+		lock2.reset();
+		lock2.turnLeft(3);
+		lock2.turnRight(5);
+		lock2.turnLeft(16);
+		lock2.turnRight(7);
+		assertTrue(lock2.open());
+		lock2.reset();
+		lock2.turnRight(2);
+		lock2.turnLeft(16);
+		lock2.turnRight(8);
+		assertFalse(lock2.open());
+		
 	}
 	
 	@Test
