@@ -87,4 +87,18 @@ public abstract class MerchandiseItem {
 	 * @return	a string containing the date you will get your item in the format YYYY-MM-DD
 	 */
 	public abstract String purchase(String purchaseDate);
+	
+	public boolean equals(MerchandiseItem rhs)
+	{
+		boolean equalID = id.equals(rhs.id);
+		boolean equalName = name.equals(rhs.name);
+		boolean equalPrice = price == rhs.price;
+		
+		return equalID && equalName && equalPrice;
+	}
+	
+	public String toString()
+	{
+		return id.toString() + ", name: " + name + ", price: " + price;
+	}
 }

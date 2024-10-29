@@ -26,7 +26,7 @@ public class DigitalItem extends MerchandiseItem {
 	 */
 	public DigitalItem(String name, double price, Format format) {
 		super(name, price);
-		// FILL IN
+		this.format = format;
 	}
 
 
@@ -36,7 +36,7 @@ public class DigitalItem extends MerchandiseItem {
 	 * @return format of the item
 	 */
 	public Format getFormat() {
-		return null; // FIX ME
+		return format;
 	}
 
 
@@ -46,25 +46,41 @@ public class DigitalItem extends MerchandiseItem {
 	 * @param f new format
 	 */
 	public void setFormat(Format f) {
-		// FILL IN
+		format = f;
 	}
 
 
 	@Override
 	public String purchase(String purchaseDate) {
-		return ""; // FIX ME
+		// since this is a digital item, the date purchased is the same as the date
+		// received since it arrives immediately
+		return purchaseDate;
 	}
 
 
 	@Override
 	public boolean equals(Object otherObject) {
-		return false; // FIX ME
+		if (otherObject instanceof DigitalItem)
+		{
+			DigitalItem other = (DigitalItem) otherObject;
+			return super.equals(other) && format == other.format;
+		}
+		return false;
 	}
 
 
 	@Override
 	public String toString() {
-		return ""; // FIX ME
+		String returnMe = super.toString() + ", format: ";
+		
+		if (format == Format.VIDEO)
+			returnMe += "VIDEO";
+		else if (format == Format.AUDIO)
+			returnMe += "AUDIO";
+		else
+			returnMe += "EBOOK";
+		
+		return returnMe;
 	}
 
 }

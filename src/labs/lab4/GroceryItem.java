@@ -1,5 +1,6 @@
 package labs.lab4;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 
 /**
@@ -7,7 +8,9 @@ import java.time.LocalDate;
  */
 public class GroceryItem extends MerchandiseItem {
 
-	// ADD YOUR INSTANCE VARIABLES HERE
+	private String expirationDate;
+	
+	private static final int SHIPPING_TIME = 1;
 
 	/**
 	 * Constructor
@@ -18,7 +21,7 @@ public class GroceryItem extends MerchandiseItem {
 	 */
 	public GroceryItem(String name, double price, String expirationDate) {
 		super(name, price);
-		// FILL IN
+		this.expirationDate = expirationDate;
 	}
 
 
@@ -28,7 +31,7 @@ public class GroceryItem extends MerchandiseItem {
 	 * @return the expiration date, in the format YYYY-MM-DD
 	 */
 	public String getExpirationDate() {
-		return ""; // FIX ME
+		return expirationDate;
 	}
 
 
@@ -38,25 +41,43 @@ public class GroceryItem extends MerchandiseItem {
 	 * @param s new expiration date, in the format YYYY-MM-DD
 	 */
 	public void setExpirationDate(String s) {
-		// FILL IN
+		expirationDate = s;
 	}
 
 
 	@Override
 	public String purchase(String purchaseDate) {
-		return ""; // FIX ME
+		LocalDate tempDate = LocalDate.parse(purchaseDate);
+		
+		// advance by the appropriate number of business days
+		for (int i = 1; i <= SHIPPING_TIME; ++i)
+		{
+			tempDate = tempDate.plusDays(1);
+			// advance past any weekends
+			if (tempDate.getDayOfWeek() == DayOfWeek.SATURDAY)
+				tempDate = tempDate.plusDays(2);
+			else if (tempDate.getDayOfWeek() == DayOfWeek.SUNDAY)
+				tempDate = tempDate.plusDays(1);
+		}
+		
+		return tempDate.toString();
 	}
 
 
 	@Override
 	public boolean equals(Object otherObject) {
-		return false; // FIX ME
+		if (otherObject instanceof GroceryItem)
+		{
+			GroceryItem other = (GroceryItem) otherObject;
+			return super.equals(other) && expirationDate.equals(other.expirationDate);
+		}
+		return false;
 	}
 
 
 	@Override
 	public String toString() {
-		return ""; // FIX ME
+		return super.toString() + ", expiration date: " + expirationDate;
 	}
 
 }
