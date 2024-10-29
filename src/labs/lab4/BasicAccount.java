@@ -11,7 +11,7 @@ public class BasicAccount extends BankAccount {
 	 * @param initialBalance the initial balance
 	 */
 	public BasicAccount(double initialBalance) {
-		// FILL IN
+		super(initialBalance);
 	}
 
 	/**
@@ -21,6 +21,7 @@ public class BasicAccount extends BankAccount {
 	 */
 	@Override
 	public void withdraw(double amount) {
-		// FILL IN
+		if (amount <= getBalance())
+			super.withdraw(amount);
 	}
 }
