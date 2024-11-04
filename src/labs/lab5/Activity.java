@@ -2,7 +2,7 @@ package labs.lab5;
 
 public class Activity extends GameElement implements Doable {
 	
-	// ADD YOUR INSTANCE VARIABLES EHRE
+	int duration;
 		
 	/**
 	 * 
@@ -12,7 +12,7 @@ public class Activity extends GameElement implements Doable {
 	 */
 	public Activity(String name, double healthScore, int duration) {
 		super(name, healthScore);
-		// FILL IN
+		this.duration = duration;
 	}
 	
 	
@@ -23,6 +23,17 @@ public class Activity extends GameElement implements Doable {
 	 */
 	@Override
 	public String doIt(Player player) {
-		return ""; // FIX ME
+		if (super.getHealthScore() != 5)
+		{
+			double healthDifference = super.getHealthScore() - 5;
+			
+			double healthChange = healthDifference * 0.05;
+			
+			double newHealth = player.getHealth() + healthChange;
+			
+			player.setHealth(newHealth);
+		}
+		
+		return player.getName() + " is doing " + super.getName() + " for " + duration + " hours";
 	}
 }

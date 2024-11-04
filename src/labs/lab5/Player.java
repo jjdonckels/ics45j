@@ -2,7 +2,8 @@ package labs.lab5;
 
 public class Player {
 	
-	// ADD YOUR INSTANCE VARIABLES EHRE
+	private String name;
+	private double health;
 	
 	
 	/**
@@ -10,17 +11,18 @@ public class Player {
 	 * Creates a new Player with the given name and health=0.5
 	 */
 	public Player(String name) {
-		// FILL IN
+		this.name = name;
+		health = 0.5;
 	}
 	
 	
 	public String getName() {
-		return ""; // FIX ME
+		return name;
 	}
 	
 	
 	public void setName(String s) {
-		// FILL IN
+		name = s;
 	}
 	
 	
@@ -29,7 +31,7 @@ public class Player {
 	 * @return	the health, which is always a number from 0 (least healthy) to 1 (most healthy)
 	 */
 	public double getHealth() {
-		return 0.0; // FIX ME
+		return health;
 	}
 	
 	
@@ -41,6 +43,14 @@ public class Player {
 	 * If health == 0, print out a message "[this.name] died!"
 	 */
 	public void setHealth(double d) {
-		// FILL IN
+		if (d < 0)
+			health = 0;
+		else if (d > 1)
+			health = 1;
+		else 
+			health = d;
+		
+		if (health == 0)
+			System.out.print(name + " died!");
 	}
 }

@@ -19,6 +19,17 @@ public class Food extends GameElement implements Ingestible {
 	 */
 	@Override
 	public String ingest(Player player) {
-		return ""; // FIX ME
+		if (super.getHealthScore() != 5)
+		{
+			double healthDifference = super.getHealthScore() - 5;
+		
+			double healthChange = healthDifference * 0.1;
+			
+			double newHealth = player.getHealth() + healthChange;
+			
+			player.setHealth(newHealth);
+		}
+		
+		return player.getName() + " is eating " + super.getName();
 	}
 }
