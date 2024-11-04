@@ -2,7 +2,8 @@ package labs.lab5;
 
 public abstract class Person implements Comparable {
 
-	// ADD INSTANCE VARIABLES HERE
+	private String name;
+	private int age;
 
 	/**
 	 * 
@@ -10,17 +11,18 @@ public abstract class Person implements Comparable {
 	 * @param age  no validity checks necessary -- assume all valid input
 	 */
 	public Person(String name, int age) {
-		// FILL IN
+		this.name = name;
+		this.age = age;
 	}
 
 
 	public String getName() {
-		return ""; // FIX ME
+		return name;
 	}
 
 
 	public int getAge() {
-		return -1; // FIX ME
+		return age;
 	}
 
 
@@ -29,13 +31,23 @@ public abstract class Person implements Comparable {
 	 */
 	@Override
 	public int compareTo(Object otherPerson) {
-		return -1; // FIX ME
+		Person other = (Person) otherPerson;
+		int stringComp = name.compareTo(other.name);
+		if (stringComp != 0)
+			return stringComp;
+		
+		// at this point we compare by age
+		if (age < other.age)
+			return -1;
+		else if (age > other.age)
+			return 1;
+		return 0;
 	}
 
 
 	@Override
 	public String toString() {
-		return ""; // FIX ME
+		return "Name: " + name + ", Age: " + age;
 	}
 
 }

@@ -9,7 +9,7 @@ public class Parent extends Person implements Encourager {
 
 	@Override
 	public String encourage() {
-		return ""; // FIX ME (you should call the below private methods)
+		return callOnThePhone() + " | " + sayYoureTheirFavoriteChild();
 	}
 
 

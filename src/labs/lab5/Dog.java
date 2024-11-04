@@ -4,7 +4,7 @@ public class Dog implements Encourager {
 
 	@Override
 	public String encourage() {
-		return ""; // FIX ME (you should call the below private methods)
+		return giveWetSloppyKisses() + " | " + layOnYourFeet();
 	}
 
 

@@ -4,7 +4,7 @@ public class Nature implements Encourager {
 
 	@Override
 	public String encourage() {
-		return ""; // FIX ME (you should call the below private methods)
+		return shineSun() + " | " + blowGentleBreeze();
 	}
 
 

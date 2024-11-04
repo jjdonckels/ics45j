@@ -9,7 +9,7 @@ public class Friend extends Person implements Encourager {
 
 	@Override
 	public String encourage() {
-		return ""; // FIX ME (you should call the below private methods)
+		return comeOverToHangOut() + " | " + bringSnacks();
 	}
 
 
