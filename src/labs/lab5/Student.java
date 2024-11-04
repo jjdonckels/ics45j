@@ -5,7 +5,8 @@ package labs.lab5;
  */
 public class Student implements Comparable {
 
-	// ADD YOUR INSTANCE VARIABLES HERE
+	private String name;
+	private int id;
 
 	/**
 	 * Constructs a student object
@@ -14,7 +15,8 @@ public class Student implements Comparable {
 	 * @param id   the student's id
 	 */
 	public Student(String name, int id) {
-		// FILL IN
+		this.name = name;
+		this.id = id;
 	}
 
 
@@ -24,7 +26,7 @@ public class Student implements Comparable {
 	 * @return the name
 	 */
 	public String getName() {
-		return ""; // FIX ME
+		return name;
 	}
 
 
@@ -34,19 +36,21 @@ public class Student implements Comparable {
 	 * @return the name
 	 */
 	public int getId() {
-		return -1; // FIX ME
+		return id;
 	}
 
 
 	@Override
 	public String toString() {
-		return ""; // FIX ME
+		return name + ", " + id;
 	}
 
 
 	@Override
 	public boolean equals(Object otherObject) {
-		return false; // FIX ME
+		Student other = (Student) otherObject;
+		
+		return name.equals(other.name) && id == other.id; 
 	}
 
 
@@ -58,7 +62,23 @@ public class Student implements Comparable {
 	 *         if this student comes after
 	 */
 	public int compareTo(Object other) {
-		return -1; // FIX ME
+		Student rhs = (Student) other;
+		
+		int nameComp = name.compareTo(rhs.name);
+		
+//		DEBUG
+//		System.out.println("Comparing " + name + " and " + rhs.name);
+//		System.out.println("name comparison: " + nameComp + "\n");
+		
+		if (nameComp != 0)
+			return nameComp;
+		
+		// if we get here the names are equal and we need to compare id numbers
+		if (id < rhs.id)
+			return -1;
+		else if (id > rhs.id)
+			return 1;
+		return 0;
 	}
 
 }

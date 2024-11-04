@@ -180,9 +180,16 @@ public class Lab5Test {
 	
 	@Test
 	public void problem9() {
-		Student[] students = new Student[] { new Student("Robert", 1234), new Student("Emily", 4321),
-				new Student("Harry", 1111), new Student("Kelly", 18), new Student("Mike", 18), new Student("Mike", 18),
-				new Student("Robert", 50000), new Student("Emily", 9832), new Student("Emily", 19),
+		Student[] students = new Student[] { 
+				new Student("Robert", 1234), 
+				new Student("Emily", 4321),
+				new Student("Harry", 1111), 
+				new Student("Kelly", 18), 
+				new Student("Mike", 18), 
+				new Student("Mike", 18),
+				new Student("Robert", 50000), 
+				new Student("Emily", 9832), 
+				new Student("Emily", 19),
 				new Student("ROBERT", 7778) };
 
 		// test toString:

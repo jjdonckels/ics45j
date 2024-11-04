@@ -12,7 +12,16 @@ public class StudentFinder {
 	 * @return first Student
 	 */
 	public static Student firstStudent(Student[] students) {
-		return null; // FIX ME
+		// return minimum student
+		int minIndex = 0;
+		
+		for (int i = 1; i < students.length; i++)
+		{
+			if (students[i].compareTo(students[minIndex]) < 0)
+				minIndex = i;
+		}
+		
+		return students[minIndex];
 	}
 
 
@@ -23,7 +32,15 @@ public class StudentFinder {
 	 * @return last Student
 	 */
 	public static Student lastStudent(Student[] students) {
-		return null; // FIX ME
+		// return maximum student
+		int maxIndex = 0;
+		for (int i = 1; i < students.length; i++)
+		{
+			if (students[i].compareTo(students[maxIndex]) > 0)
+				maxIndex = i;
+		}
+		
+		return students[maxIndex];
 	}
 
 }
