@@ -42,13 +42,18 @@ public class Coin implements Comparable {
 	
 	@Override
 	public String toString() {
-		return ""; // FIX ME 
+		return "Value: " + value + ", Name: " + name;
 	}
 	
 	
 	@Override
 	public boolean equals(Object otherObject) {
-		return false; // FIX ME
+		Coin other = (Coin) otherObject;
+		
+		boolean sameVal = value == other.value;
+		boolean sameName = name.equals(other.name);
+		
+		return sameVal && sameName;
 	}
 
 
@@ -60,7 +65,22 @@ public class Coin implements Comparable {
 	 *         than, equal to, or greater than the specified coin
 	 */
 	public int compareTo(Object otherObject) {
-		return -1; // FIX ME
+		Coin other = (Coin) otherObject;
+		
+		// first compare by value then by name
+		int valueComp;
+		
+		if (value < other.value)
+			valueComp = -1;
+		else if (value > other.value)
+			valueComp = 1;
+		else 
+			valueComp = 0;
+		
+		if (valueComp != 0)
+			return valueComp;
+		else 
+			return name.compareTo(other.name);
 	}
 
 }
