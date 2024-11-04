@@ -413,27 +413,27 @@ public class Main {
 		
 	}
 	
-	private static void printArr(int[] arr)
-	{
-		if (arr.length == 0)
-		{
-			System.out.println("empty array");
-			return;
-		}
-		for (int n : arr)
-			System.out.print(n + " ");
-		System.out.println();
-	}
-	
-	private static void print2D(char[][] arr)
-	{
-		for (int i = 0; i < arr.length; ++i)
-		{
-			for (int j = 0; j < arr[0].length; ++j)
-			{
-				System.out.print(arr[i][j] + " ");
-			}
-			System.out.println();
-		}
-	}
+//	private static void printArr(int[] arr)
+//	{
+//		if (arr.length == 0)
+//		{
+//			System.out.println("empty array");
+//			return;
+//		}
+//		for (int n : arr)
+//			System.out.print(n + " ");
+//		System.out.println();
+//	}
+//	
+//	private static void print2D(char[][] arr)
+//	{
+//		for (int i = 0; i < arr.length; ++i)
+//		{
+//			for (int j = 0; j < arr[0].length; ++j)
+//			{
+//				System.out.print(arr[i][j] + " ");
+//			}
+//			System.out.println();
+//		}
+//	}
 }

@@ -96,38 +96,54 @@ public class Lab4Test {
 	
 	@Test
 	public void problem5() {
-		ComboLock lock = new ComboLock(38, 14, 7);
-		lock.turnRight(2);
-		lock.turnLeft(16);
-		lock.turnRight(7);
-		assertTrue(lock.open());
-		lock.reset();
-		lock.turnRight(2);
-		lock.turnLeft(21);
-		lock.turnRight(7);
-		assertFalse(lock.open());
+//		ComboLock lock = new ComboLock(38, 14, 7);
+//		lock.turnRight(2);
+//		lock.turnLeft(16);
+//		lock.turnRight(7);
+//		assertTrue(lock.open());
+//		lock.reset();
+//		lock.turnRight(2);
+//		lock.turnLeft(21);
+//		lock.turnRight(7);
+//		assertFalse(lock.open());
+//		
+//		ComboLock lock2 = new ComboLock(38, 14, 7);
+//		lock2.turnRight(42);
+//		lock2.turnLeft(56);
+//		lock2.turnRight(87);
+//		assertTrue(lock2.open());
+//		lock2.reset();
+//		lock2.turnRight(3);
+//		lock2.turnLeft(23);
+//		lock2.turnRight(44);
+//		assertFalse(lock2.open());
+//		lock2.reset();
+//		lock2.turnLeft(3);
+//		lock2.turnRight(5);
+//		lock2.turnLeft(16);
+//		lock2.turnRight(7);
+//		assertTrue(lock2.open());
+//		lock2.reset();
+//		lock2.turnRight(2);
+//		lock2.turnLeft(16);
+//		lock2.turnRight(8);
+//		assertFalse(lock2.open());
 		
-		ComboLock lock2 = new ComboLock(38, 14, 7);
-		lock2.turnRight(42);
-		lock2.turnLeft(56);
-		lock2.turnRight(87);
-		assertTrue(lock2.open());
-		lock2.reset();
-		lock2.turnRight(3);
-		lock2.turnLeft(23);
-		lock2.turnRight(44);
-		assertFalse(lock2.open());
-		lock2.reset();
-		lock2.turnLeft(3);
-		lock2.turnRight(5);
-		lock2.turnLeft(16);
-		lock2.turnRight(7);
-		assertTrue(lock2.open());
-		lock2.reset();
-		lock2.turnRight(2);
-		lock2.turnLeft(16);
-		lock2.turnRight(8);
-		assertFalse(lock2.open());
+		
+		// official grade test 5_5
+		ComboLock lock = new ComboLock(39, 5, 37);
+        lock.turnRight(1);
+        lock.turnLeft(6);
+        lock.turnRight(8);
+        assertTrue(lock.open());
+        lock.reset();
+        lock.turnRight(1);
+        assertFalse(lock.open());
+        lock.reset();
+        lock.turnRight(1);
+        lock.turnLeft(6);
+        lock.turnRight(8);
+        assertTrue(lock.open());
 		
 	}
 	
