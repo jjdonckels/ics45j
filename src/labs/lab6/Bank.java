@@ -1,10 +1,16 @@
 package labs.lab6;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Scanner;
+
 /**
  * A bank contains account numbers and balances of each customer.
  */
 public class Bank {
-	// ADD YOUR INSTANCE VARIABLES HERE
+	ArrayList<BankAccount> accounts;
+	Scanner in;
 
 	/**
 	 * Construct a Bank object with accounts read from the given file
@@ -12,7 +18,26 @@ public class Bank {
 	 * @param filename the name of the file
 	 */
 	public Bank(String fileName) {
-		// FILL IN
+		accounts = new ArrayList<BankAccount>();
+		
+		try 
+		{
+			in = new Scanner(new File(fileName));
+			
+			while (in.hasNext())
+			{
+				int currAccNum = in.nextInt();
+				double currAccBalance = in.nextDouble();
+				
+				accounts.add(new BankAccount(currAccNum, currAccBalance));
+			}
+			
+			in.close();
+		}
+		catch (FileNotFoundException e)
+		{
+			System.out.print("File: " + fileName + " not found");
+		}
 	}
 
 
@@ -23,6 +48,17 @@ public class Bank {
 	 * no accounts in this bank
 	 */
 	public BankAccount getLowestBalanceAccount() {
-		return null; // FIX ME
+		if (accounts.isEmpty())
+			return null;
+		
+		BankAccount min = accounts.get(0);
+		
+		for (int i = 1; i < accounts.size(); ++i) 
+		{
+			if (accounts.get(i).getBalance() < min.getBalance())
+				min = accounts.get(i);
+		}
+		
+		return min;
 	}
 }

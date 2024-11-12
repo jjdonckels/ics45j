@@ -49,35 +49,11 @@ public class WordFrequencyCounter {
 	 * 
 	 * @param fileName name of file from which to count word frequencies
 	 */
-	public WordFrequencyCounter(String fileName) {		
+	public WordFrequencyCounter(String fileName) {	
+		wordList = new ArrayList<WordPair>();
 		try 
 		{
 			in = new Scanner(new File(fileName));
-		}
-		catch (FileNotFoundException e)
-		{
-			System.out.print("File: " + fileName + " not found");
-		}
-		wordList = new ArrayList<WordPair>();
-	}
-
-
-	/**
-	 * Returns a word frequency graph based on the input file. Words are sorted
-	 * based on frequency (more frequent words appear first) and then by name
-	 * (lexicographically). 
-	 * 
-	 * Convert all words into lower case for the analysis and graph generation.
-	 * 
-	 * @return a word frequency graph based on the input file
-	 */
-	public String getFrequencyGraph() {
-		String returnMe = "";
-//		String temp = "";
-		// test file opening
-//		try 
-//		{
-//			Scanner in = new Scanner(new File(file));
 			
 			while (in.hasNext())
 			{
@@ -102,15 +78,41 @@ public class WordFrequencyCounter {
 			}
 			
 			in.close();
-//		}
-//		catch (FileNotFoundException e)
+//			}
+//			catch (FileNotFoundException e)
+//			{
+//				System.out.print("File: " + file + " not found");
+//				return "";
+//			}
+			
+			// sort wordList
+			Collections.sort(wordList);
+		}
+		catch (FileNotFoundException e)
+		{
+			System.out.print("File: " + fileName + " not found");
+		}
+	}
+
+
+	/**
+	 * Returns a word frequency graph based on the input file. Words are sorted
+	 * based on frequency (more frequent words appear first) and then by name
+	 * (lexicographically). 
+	 * 
+	 * Convert all words into lower case for the analysis and graph generation.
+	 * 
+	 * @return a word frequency graph based on the input file
+	 */
+	public String getFrequencyGraph() {
+		String returnMe = "";
+//		String temp = "";
+		// test file opening
+//		try 
 //		{
-//			System.out.print("File: " + file + " not found");
-//			return "";
-//		}
-		
-		// sort wordList
-		Collections.sort(wordList);
+//			Scanner in = new Scanner(new File(file));
+			
+			
 		
 		for (int i = 0; i < wordList.size(); ++i)
 		{

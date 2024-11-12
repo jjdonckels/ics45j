@@ -4,7 +4,8 @@ package labs.lab6;
  * A bank account has a balance that can be changed by deposits and withdrawals.
  */
 public class BankAccount {
-	// ADD YOUR INSTANCE VARIABLES HERE
+	private int accountNum;
+	private double balance;
 
 	/**
 	 * Constructs a bank account with a given balance.
@@ -12,7 +13,8 @@ public class BankAccount {
 	 * @param initialBalance the initial balance
 	 */
 	public BankAccount(int accountNumber, double initialBalance) {
-		// FILL IN
+		accountNum = accountNumber;
+		balance = initialBalance;
 	}
 
 	/**
@@ -21,11 +23,11 @@ public class BankAccount {
 	 * @return the current balance
 	 */
 	public double getBalance() {
-		return -1.0; // FIX ME
+		return balance;
 	}
 	
 	public void setBalance(double balance) {
-		// FILL IN
+		this.balance = balance;
 	}
 
 	/**
@@ -34,7 +36,7 @@ public class BankAccount {
 	 * @return the account number
 	 */
 	public int getAccountNumber() {
-		return -1; // FIX ME
+		return accountNum;
 	}
 	
 	
@@ -44,7 +46,7 @@ public class BankAccount {
 	 */
 	@Override
 	public String toString() {
-		return ""; // FIX ME
+		return "" + accountNum + ", " + balance;
 	}
 	
 	
@@ -54,6 +56,7 @@ public class BankAccount {
 	 */
 	@Override
 	public boolean equals(Object otherObj) {
-		return false; // FIX ME
+		BankAccount other = (BankAccount) otherObj;
+		return accountNum == other.accountNum && balance == other.balance;
 	}
 }
