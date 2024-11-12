@@ -4,7 +4,10 @@ package labs.lab6;
  * Represents a single sale.
  */
 public class Sale {
-	// ADD YOUR INSTANCE VARIABLES HERE
+	private String name;
+	private String service;
+	private double amount;
+	private String date;
 
 	/**
 	 * Constructs a Sale.
@@ -15,7 +18,10 @@ public class Sale {
 	 * @param date    date of service
 	 */
 	public Sale(String name, String service, double amount, String date) {
-		// FILL IN
+		this.name = name;
+		this.service = service;
+		this.amount = amount;
+		this.date = date;
 	}
 
 	/**
@@ -24,7 +30,7 @@ public class Sale {
 	 * @return name
 	 */
 	public String getName() {
-		return ""; // FIX ME
+		return name;
 	}
 
 	/**
@@ -33,7 +39,7 @@ public class Sale {
 	 * @return service category
 	 */
 	public String getServiceCategory() {
-		return ""; // FIX ME
+		return service;
 	}
 
 	/**
@@ -42,7 +48,7 @@ public class Sale {
 	 * @return cost of service
 	 */
 	public double getAmount() {
-		return -1.0; // FIX ME
+		return amount;
 	}
 
 	/**
@@ -51,6 +57,6 @@ public class Sale {
 	 * @return date of service
 	 */
 	public String getDate() {
-		return ""; // FIX ME
+		return date;
 	}
 }

@@ -42,7 +42,6 @@ public class WordFrequencyCounter {
 	}
 	
 	private ArrayList<WordPair> wordList;
-	private Scanner in;
 
 	/**
 	 * Constructor
@@ -53,7 +52,7 @@ public class WordFrequencyCounter {
 		wordList = new ArrayList<WordPair>();
 		try 
 		{
-			in = new Scanner(new File(fileName));
+			Scanner in = new Scanner(new File(fileName));
 			
 			while (in.hasNext())
 			{

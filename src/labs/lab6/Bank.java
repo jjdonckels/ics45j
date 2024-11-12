@@ -10,7 +10,6 @@ import java.util.Scanner;
  */
 public class Bank {
 	ArrayList<BankAccount> accounts;
-	Scanner in;
 
 	/**
 	 * Construct a Bank object with accounts read from the given file
@@ -22,7 +21,7 @@ public class Bank {
 		
 		try 
 		{
-			in = new Scanner(new File(fileName));
+			Scanner in = new Scanner(new File(fileName));
 			
 			while (in.hasNext())
 			{
