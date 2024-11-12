@@ -1,0 +1,56 @@
+Log I)n  O)ut  S)end  R)ead  Q)uit: i
+User name: Emily
+Log I)n  O)ut  S)end  R)ead  Q)uit: r
+
+Log I)n  O)ut  S)end  R)ead  Q)uit: s
+Mail to: Robert
+Enter text, blank line to end:
+Hi Robert,
+You are snoring too loud!
+I love oyu anyway.
+Love,
+Mom
+
+Log I)n  O)ut  S)end  R)ead  Q)uit: s
+Mail to: 45J Student
+Enter text, blank line to end:
+Hey 45J Student,
+You are doing great!
+Keep up the good work.
+-Prof. Navarro
+
+Log I)n  O)ut  S)end  R)ead  Q)uit: o
+Log I)n  O)ut  S)end  R)ead  Q)uit: i
+User name: 45J Student
+Log I)n  O)ut  S)end  R)ead  Q)uit: r
+ -----
+From: Emily
+To: 45J Student
+Hey 45J Student,
+You are doing great!
+Keep up the good work.
+-Prof. Navarro
+
+Log I)n  O)ut  S)end  R)ead  Q)uit: s
+Mail to: Robert
+Enter text, blank line to end:
+Robert, you are the best dog ever!!!
+
+Log I)n  O)ut  S)end  R)ead  Q)uit: o
+Log I)n  O)ut  S)end  R)ead  Q)uit: i
+User name: Robert
+Log I)n  O)ut  S)end  R)ead  Q)uit: r
+ -----
+From: Emily
+To: Robert
+Hi Robert,
+You are snoring too loud!
+I love oyu anyway.
+Love,
+Mom
+ -----
+From: 45J Student
+To: Robert
+Robert, you are the best dog ever!!!
+
+Log I)n  O)ut  S)end  R)ead  Q)uit: q

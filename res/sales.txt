@@ -1,0 +1,3 @@
+Robert Navarro;Dinner;29.95;6/7/2014
+Emily Navarro;Conference;499.00;8/9/2014
+Robert Navarro;Dinner;23.45;10/10/2014
