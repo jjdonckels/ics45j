@@ -6,13 +6,13 @@ import java.util.ArrayList;
  * An email messaging system.
  */
 public class MessagingSystem {
-	// ADD YOUR INSTANCE VARIABLES HERE
+	private ArrayList<Mailbox> mailboxes;
 
 	/**
 	 * Constructs a MessagingSystem object
 	 */
 	public MessagingSystem() {
-		// FILL IN
+		mailboxes = new ArrayList<Mailbox>();
 	}
 
 
@@ -24,7 +24,42 @@ public class MessagingSystem {
 	 * @param text			text of the message
 	 */
 	public void deliver(String sender, String recipient, String text) {
-		// FILL IN
+		int senderIndex = searchIndex(sender);
+		int recipientIndex = searchIndex(recipient);
+		
+		// make a mailbox for sender if one doesn't exist
+		if (senderIndex < 0)
+		{
+			mailboxes.add(new Mailbox(sender));
+		}
+		
+		// make a mailbox for recipient if one doesn't exist
+		if (recipientIndex < 0)
+		{
+			mailboxes.add(new Mailbox(recipient));
+			int newRecipientIndex = searchIndex(recipient);
+			
+			// if this is the recipient's first message, their mailbox was just created so 
+			// the recipient index needs to be updated
+			// add the message to the recipient's mailbox		
+			mailboxes.get(newRecipientIndex).addMessage(new Message(sender, recipient, text));
+			return;
+		}
+		
+		// add the message to the recipient's mailbox		
+		mailboxes.get(recipientIndex).addMessage(new Message(sender, recipient, text));
+	}
+	
+	// return index of the mailbox belonging to the given user, -1 if not found
+	private int searchIndex(String user)
+	{
+		for (int i = 0; i < mailboxes.size(); ++i)
+		{
+			if (mailboxes.get(i).getUser().equals(user))
+				return i;
+		}
+		
+		return -1;
 	}
 
 	
@@ -34,6 +69,9 @@ public class MessagingSystem {
 	 * @param user the user
 	 */
 	public String getMessages(String user) {
-		return ""; // FIX ME
+		int userIndex = searchIndex(user);
+		if (userIndex < 0)
+			return "" + user + " does not have a mailbox";
+		return mailboxes.get(userIndex).getAllMessages();
 	}
 }

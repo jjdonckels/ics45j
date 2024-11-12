@@ -4,7 +4,9 @@ package labs.lab6;
  * An email message.
  */
 public class Message {
-	// ADD YOUR INSTANCE VARIABLES HERE
+	private String sender;
+	private String recipient;
+	private String text;
 
 	/**
 	 * Constructs a Message object.
@@ -14,7 +16,9 @@ public class Message {
 	 * @param text	the text of the message
 	 */
 	public Message(String from, String to, String text) {
-		// FILL IN
+		sender = from;
+		recipient = to;
+		this.text = text;
 	}
 
 	/**
@@ -23,7 +27,7 @@ public class Message {
 	 * @return the recipient
 	 */
 	public String getRecipient() {
-		return ""; // FIX ME
+		return recipient;
 	}
 
 	/**
@@ -33,6 +37,10 @@ public class Message {
 	 * [TEXT]
 	 */
 	public String toString() {
-		return ""; // FIX ME
+		String returnMe = "From: " + sender + "\n";
+		returnMe += "To: " + recipient + "\n";
+		returnMe += text;
+		
+		return returnMe;
 	}
 }

@@ -9,7 +9,7 @@ import java.util.Scanner;
  * A bank contains account numbers and balances of each customer.
  */
 public class Bank {
-	ArrayList<BankAccount> accounts;
+	private ArrayList<BankAccount> accounts;
 
 	/**
 	 * Construct a Bank object with accounts read from the given file

@@ -11,7 +11,7 @@ import java.util.Scanner;
  */
 public class SalesTally {
 
-	ArrayList<Sale> sales;
+	private ArrayList<Sale> sales;
 
 	/**
 	 * Constructor

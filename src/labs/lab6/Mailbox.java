@@ -1,10 +1,13 @@
 package labs.lab6;
 
+import java.util.ArrayList;
+
 /**
  * An email mailbox.
  */
 public class Mailbox {
-	// ADD YOUR INSTANCE VARIABLES HERE
+	private ArrayList<Message> messages;
+	private String user;
 
 	/**
 	 * Constructs a Mailbox object.
@@ -12,7 +15,8 @@ public class Mailbox {
 	 * @param user the user
 	 */
 	public Mailbox(String user) {
-		// FILL IN
+		messages = new ArrayList<Message>();
+		this.user = user;
 	}
 
 	/**
@@ -21,7 +25,7 @@ public class Mailbox {
 	 * @return the user of this mailbox
 	 */
 	public String getUser() {
-		return ""; // FIX ME
+		return user;
 	}
 
 	/**
@@ -30,7 +34,7 @@ public class Mailbox {
 	 * @param m the message to add
 	 */
 	public void addMessage(Message m) {
-		// FILL IN
+		messages.add(m);
 	}
 
 	/**
@@ -43,6 +47,12 @@ public class Mailbox {
 	 * etc.
 	 */
 	public String getAllMessages() {
-		return ""; // FIX ME
+		String returnMe = "";
+		for (int i = 0; i < messages.size(); ++i)
+		{
+			returnMe += " -----\n" + messages.get(i).toString();
+		}
+		
+		return returnMe;
 	}
 }
