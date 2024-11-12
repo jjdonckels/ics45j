@@ -5,7 +5,9 @@ package labs.lab6;
  */
 public class Customer {
 
-	// ADD YOUR INSTANCE VARIABLES HERE
+	private int id;
+	private String name;
+	private double balance;
 
 	/**
 	 * Constructs a customer with the given id, name, and with a zero balance
@@ -14,7 +16,15 @@ public class Customer {
 	 * @param name customer name
 	 */
 	public Customer(int id, String name) {
-		// FILL IN
+		if (id < 0)
+			throw new IllegalArgumentException("Customer ID cannot be negative");
+		this.id = id;
+		
+		if (name.isBlank())
+			throw new IllegalArgumentException("Customer name cannot be blank");
+		this.name = name;
+		
+		balance = 0;
 	}
 
 
@@ -31,17 +41,27 @@ public class Customer {
 	 * @param balance customer balance
 	 */
 	public Customer(int id, String name, double balance) {		
-		// FILL IN
+		if (id < 0)
+			throw new IllegalArgumentException("Customer ID cannot be negative");
+		this.id = id;
+		
+		if (name.isBlank())
+			throw new IllegalArgumentException("Customer name cannot be blank");
+		this.name = name;
+		
+		if (balance < 0)
+			throw new IllegalArgumentException("Customer balance cannot be negative");
+		this.balance = balance;
 	}
 	
 	
 	public int getID() {
-		return -1; // FIX ME
+		return id;
 	}
 	
 	
 	public String getName() {
-		return ""; // FIX ME
+		return name;
 	}
 
 
@@ -51,7 +71,7 @@ public class Customer {
 	 * @return the current balance
 	 */
 	public double getBalance() {
-		return -1.0; // FIX ME
+		return balance;
 	}
 	
 
@@ -61,6 +81,9 @@ public class Customer {
 	 * @param amount the amount by which to adjust the balance
 	 */
 	public void adjustBalance(double amount) {
-		// FILL IN
+		if (balance + amount < 0)
+			throw new IllegalArgumentException("Cannot adjust balance to negative amount");
+		
+		balance += amount;
 	}
 }
