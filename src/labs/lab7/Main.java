@@ -12,7 +12,26 @@ public class Main {
 	 * @return		true if at least n copies of sub appear in the string somewhere, with overlapping
 	 */
 	public static boolean problem1_countCopies(String str, String sub, int n) {
-		return false; // FIX ME
+		// base case empty string and no substrings found
+		if (str.isEmpty()) return false;
+		
+		// base case n == 0 and substring not expected in str
+		if (n == 0) return true;
+		
+		
+		int subIndex = str.indexOf(sub);
+		if (subIndex >= 0)
+		{
+			// base case at least one substring found
+			if (n == 1) return true;
+			
+			return problem1_countCopies(str.substring(subIndex + 1), sub, n - 1);
+		}
+		
+		return false;
+		
+		
+		
 	}
 	
 	
@@ -45,5 +64,12 @@ public class Main {
 	 */
 	public static int problem3_countElevens(int[] nums, int index) {
 		return -1; // FIX ME
+	}
+	
+	public static void main(String[] args) 
+	{
+		System.out.println(problem1_countCopies("catcowcat", "cat", 2));
+		System.out.println(problem1_countCopies("catcowcat", "cow", 2));
+		System.out.println(problem1_countCopies("catcowcat", "cat", 1));
 	}
 }
