@@ -44,9 +44,28 @@ public class Main {
 	 * 
 	 * @return the number of times lowercase "hi" (without an 'x' immediately before
 	 *         it) appears in the string, however do
-	 */
+	 */	
 	public static int problem2_countHis(String str) {
-		return -1; // FIX ME
+		// base case empty string or not enough characters to write "hi"
+		if (str.length() <= 1) return 0;
+		
+		int targetIndex = str.indexOf("hi");
+		
+		if (targetIndex < 0) return 0;
+		
+		if (targetIndex > 0 && str.charAt(targetIndex - 1) == 'x')
+		{
+			// check out of bounds (no hi's left to find)
+			if (targetIndex + 2 > str.length() - 1) return 0;
+			
+			return 0 + problem2_countHis(str.substring(targetIndex + 2));
+		}
+			
+		// we found a "hi" without 'x' in front so we count it 
+		// check out of bounds (no hi's left to find)
+		if (targetIndex + 2 > str.length() - 1) return 1;
+		
+		return 1 + problem2_countHis(str.substring(targetIndex + 2));
 	}
 	
 	
@@ -68,8 +87,15 @@ public class Main {
 	
 	public static void main(String[] args) 
 	{
-		System.out.println(problem1_countCopies("catcowcat", "cat", 2));
-		System.out.println(problem1_countCopies("catcowcat", "cow", 2));
-		System.out.println(problem1_countCopies("catcowcat", "cat", 1));
+//		Problem 1 test
+//		System.out.println(problem1_countCopies("catcowcat", "cat", 2));
+//		System.out.println(problem1_countCopies("catcowcat", "cow", 2));
+//		System.out.println(problem1_countCopies("catcowcat", "cat", 1));
+		
+//		Problem 2 test
+		System.out.println(problem2_countHis("ahixhi"));
+		System.out.println(problem2_countHis("ahibhi"));
+		System.out.println(problem2_countHis("xhixhi"));
+		
 	}
 }
