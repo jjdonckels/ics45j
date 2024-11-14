@@ -82,7 +82,12 @@ public class Main {
 	 * @return the number of times the value 11 appears in the array
 	 */
 	public static int problem3_countElevens(int[] nums, int index) {
-		return -1; // FIX ME
+		// base case
+		if (index == nums.length) return 0;
+		
+		if (nums[index] == 11) return 1 + problem3_countElevens(nums, index + 1);
+		
+		return problem3_countElevens(nums, index + 1);
 	}
 	
 	public static void main(String[] args) 
