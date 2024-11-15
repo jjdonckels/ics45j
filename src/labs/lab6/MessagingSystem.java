@@ -71,7 +71,7 @@ public class MessagingSystem {
 	public String getMessages(String user) {
 		int userIndex = searchIndex(user);
 		if (userIndex < 0)
-			return "" + user + " does not have a mailbox";
+			return ""; // "" + user + " does not have a mailbox";
 		return mailboxes.get(userIndex).getAllMessages();
 	}
 }

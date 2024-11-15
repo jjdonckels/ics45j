@@ -300,4 +300,46 @@ public class Lab6Test {
 				+ "To: Robert\n"
 				+ "Robert, you are the best dog ever!!!\n",mailbox.getAllMessages());
 	}
+	
+	//10 points
+		@Test
+		public void problems6through10_4() {
+		    MessagingSystem system = new MessagingSystem();
+
+		    // Edge case: No messages for a user should return an empty string
+		    assertEquals("", system.getMessages("UnknownUser"));
+
+		    // Deliver a message to a user, then retrieve messages
+		    system.deliver("Alice", "Bob", "Hello Bob,\n" +
+		            "This is a reminder for our meeting tomorrow.\n" +
+		            "Best regards,\n" +
+		            "Alice\n");
+		    assertEquals(" -----\n" +
+		            "From: Alice\n" +
+		            "To: Bob\n" +
+		            "Hello Bob,\n" +
+		            "This is a reminder for our meeting tomorrow.\n" +
+		            "Best regards,\n" +
+		            "Alice\n", system.getMessages("Bob"));
+
+		    // Edge case: Another user who has not received any messages should return empty string
+		    assertEquals("", system.getMessages("Charlie"));
+
+		    // Testing the Message class with an empty message body
+		    Message emptyMessage = new Message("Alice", "Bob", "");
+		    assertEquals("Bob", emptyMessage.getRecipient());
+		    assertEquals("From: Alice\nTo: Bob\n", emptyMessage.toString());
+
+		    // Testing the Mailbox class with no messages added
+		    Mailbox emptyMailbox = new Mailbox("Dana");
+		    assertEquals("Dana", emptyMailbox.getUser());
+		    assertEquals("", emptyMailbox.getAllMessages());
+
+		    // Edge case:
+		    Mailbox mailbox = new Mailbox("Eve");
+
+		    // After clearing the mailbox, it should return an empty string
+		    system = new MessagingSystem();
+		    assertEquals("", mailbox.getAllMessages());
+		}
 }
