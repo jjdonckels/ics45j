@@ -2,6 +2,8 @@ package labs.lab7;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -10,10 +12,10 @@ import java.util.List;
  */
 public class PurchaseHistory {
 
-	// ADD YOUR INSTANCE VARIABLES EHRE
+	private ArrayList<Purchase> purchases;
 
 	public PurchaseHistory() {
-		// FILL IN
+		purchases = new ArrayList<Purchase>();
 	}
 
 
@@ -25,7 +27,7 @@ public class PurchaseHistory {
 	 * @param amount      amount of purchase
 	 */
 	public void addPurchase(LocalDate date, String description, double amount) {
-		// FILL IN
+		purchases.add(new Purchase(date, description, amount));
 	}
 
 
@@ -39,7 +41,22 @@ public class PurchaseHistory {
 	 * @return the number of purchases matching the parameters and therefore removed
 	 */
 	public int removePurchase(LocalDate date, String description, double amount) {
-		return -1; // FIX ME
+		Purchase target = new Purchase(date, description, amount);
+		int numRemoved = 0;
+		
+		// loop through every purchase
+		for (int i = 0; i < purchases.size(); ++i) 
+		{
+			if (purchases.get(i).equals(target))
+			{
+				purchases.remove(i);
+				++numRemoved;
+				// decrement index to account for the shortening of the list after removal
+				--i;
+			}
+		}
+		
+		return numRemoved;
 	}
 
 
@@ -52,7 +69,21 @@ public class PurchaseHistory {
 	 * @return a list of purchases in the date range, in sorted order
 	 */
 	public List<Purchase> getPurchasesInDateRange(LocalDate start, LocalDate end) {
-		return new ArrayList<Purchase>(); // FIX ME
+		ArrayList<Purchase> toReturn = new ArrayList<Purchase>();
+		
+		// loop through all purchases
+		for (int i = 0; i < purchases.size(); ++i) 
+		{
+			Purchase current = purchases.get(i);
+			
+			// check date range
+			if (current.getDate().compareTo(start) >= 0 && current.getDate().compareTo(end) <= 0)
+				toReturn.add(current);
+		}
+		
+		Collections.sort(toReturn);
+		
+		return toReturn;
 	}
 
 
@@ -65,7 +96,19 @@ public class PurchaseHistory {
 	 * @return the total of purchases in the date range
 	 */
 	public double getPurchaseTotalInDateRange(LocalDate start, LocalDate end) {
-		return -1.0; // FIX ME
+		double total = 0;
+		
+		// loop through all purchases
+		for (int i = 0; i < purchases.size(); ++i)
+		{
+			Purchase current = purchases.get(i);
+			
+			// check date range
+			if (current.getDate().compareTo(start) >= 0 && current.getDate().compareTo(end) <= 0)
+				total += current.getAmount();
+		}
+		
+		return total;
 	}
 
 
@@ -77,7 +120,20 @@ public class PurchaseHistory {
 	 * @return a list of purchases matching the description, in sorted order
 	 */
 	public List<Purchase> getPurchasesMatchingDescription(String description) {
-		return new ArrayList<Purchase>(); // FIX ME
+		ArrayList<Purchase> toReturn = new ArrayList<Purchase>();
+		
+		// loop through all purchases
+		for (int i = 0; i < purchases.size(); ++i) 
+		{
+			String currentDescription = purchases.get(i).getDescription();
+			
+			if (currentDescription.equals(description))
+				toReturn.add(purchases.get(i));
+		}
+		
+		Collections.sort(toReturn);
+		
+		return toReturn;
 	}
 
 
@@ -89,7 +145,18 @@ public class PurchaseHistory {
 	 * @return the total of purchases that match the description
 	 */
 	public double getPurchaseTotalMatchingDescription(String description) {
-		return -1.0; // FIX ME
+		double total = 0;
+		
+		// loop through all purchases
+		for (int i = 0; i < purchases.size(); ++i) 
+		{
+			String currentDescription = purchases.get(i).getDescription();
+			
+			if (currentDescription.equals(description))
+				total += purchases.get(i).getAmount();
+		}
+		
+		return total;
 	}
 
 
@@ -102,7 +169,20 @@ public class PurchaseHistory {
 	 * @return a list of purchases in the amount range, in sorted order
 	 */
 	public List<Purchase> getPurchasesInAmountRange(double min, double max) {
-		return new ArrayList<Purchase>(); // FIX ME
+		ArrayList<Purchase> toReturn = new ArrayList<Purchase>();
+		
+		// loop through all purchases
+		for (int i = 0; i < purchases.size(); ++i) 
+		{
+			double current = purchases.get(i).getAmount();
+			
+			if (current >= min && current <= max)
+				toReturn.add(purchases.get(i));
+		}
+		
+		Collections.sort(toReturn);
+		
+		return toReturn;
 	}
 
 
@@ -115,7 +195,18 @@ public class PurchaseHistory {
 	 * @return the total of purchases in the amount range
 	 */
 	public double getPurchaseTotalInAmountRange(double min, double max) {
-		return -1.0; // FIX ME
+		double total = 0;
+		
+		// loop through all purchases
+		for (int i = 0; i < purchases.size(); ++i) 
+		{
+			double current = purchases.get(i).getAmount();
+			
+			if (current >= min && current <= max)
+				total += current;
+		}
+		
+		return total;
 	}
 
 
@@ -129,7 +220,45 @@ public class PurchaseHistory {
 	 *         range
 	 */
 	public List<Purchase> getMaxPurchaseInDateRange(LocalDate start, LocalDate end) {
-		return new ArrayList<Purchase>(); // FIX ME
+		List<Purchase> validPurchases = getPurchasesInDateRange(start, end);
+		
+		// go through validPurchases and find the max
+		if (validPurchases.size() == 0)
+			return new ArrayList<Purchase>(); // return empty list if no valid purchases
+		else if (validPurchases.size() == 1) // if only one valid purchase just return that one
+		{
+			ArrayList<Purchase> toReturn = new ArrayList<Purchase>();
+			toReturn.add(validPurchases.get(0));
+			
+			return toReturn;
+		}
+		
+		// if there are multiple valid purchases, we need to loop through them and find the max
+		double maxAmount = validPurchases.get(0).getAmount();
+		
+		for (int i = 1; i < validPurchases.size(); ++i) 
+		{
+			double currentAmount = validPurchases.get(i).getAmount();
+			
+			if (currentAmount > maxAmount)
+				maxAmount = currentAmount;
+		}
+		
+		// now we have the max, so we need all purchases that have an amount equal to max
+		ArrayList<Purchase> toReturn = new ArrayList<Purchase>();
+		
+		// go back through valid purchases and add those that have amount equal to max
+		for (int i = 0; i < validPurchases.size(); ++i)
+		{
+			Purchase current = validPurchases.get(i);
+			
+			if (current.getAmount() == maxAmount)
+				toReturn.add(current);
+		}
+		
+		Collections.sort(toReturn);
+		
+		return toReturn;
 	}
 
 
@@ -143,7 +272,45 @@ public class PurchaseHistory {
 	 *         range
 	 */
 	public List<Purchase> getMinPurchaseInDateRange(LocalDate start, LocalDate end) {
-		return new ArrayList<Purchase>(); // FIX ME
+		List<Purchase> validPurchases = getPurchasesInDateRange(start, end);
+		
+		// go through validPurchases and find the min
+		if (validPurchases.size() == 0)
+			return new ArrayList<Purchase>(); // return empty list if no valid purchases
+		else if (validPurchases.size() == 1) // if only one valid purchase just return that one
+		{
+			ArrayList<Purchase> toReturn = new ArrayList<Purchase>();
+			toReturn.add(validPurchases.get(0));
+			
+			return toReturn;
+		}
+		
+		// if there are multiple valid purchases, we need to loop through them and find the min
+		double minAmount = validPurchases.get(0).getAmount();
+		
+		for (int i = 1; i < validPurchases.size(); ++i) 
+		{
+			double currentAmount = validPurchases.get(i).getAmount();
+			
+			if (currentAmount < minAmount)
+				minAmount = currentAmount;
+		}
+		
+		// now we have the max, so we need all purchases that have an amount equal to max
+		ArrayList<Purchase> toReturn = new ArrayList<Purchase>();
+		
+		// go back through valid purchases and add those that have amount equal to max
+		for (int i = 0; i < validPurchases.size(); ++i)
+		{
+			Purchase current = validPurchases.get(i);
+			
+			if (current.getAmount() == minAmount)
+				toReturn.add(current);
+		}
+		
+		Collections.sort(toReturn);
+		
+		return toReturn;
 	}
 
 
@@ -153,7 +320,28 @@ public class PurchaseHistory {
 	 */
 	@Override
 	public String toString() {
-		return ""; // FIX ME
+		ArrayList<Purchase> sortedPurchases = new ArrayList<Purchase>();
+		
+		for(int i = 0; i < purchases.size(); ++i)
+		{
+			Purchase temp = purchases.get(i);
+			sortedPurchases.add(new Purchase(temp.getDate(), temp.getDescription(), temp.getAmount()));
+		}
+		
+		Collections.sort(sortedPurchases);
+		
+		String returnMe = "";
+		
+		// now we have all the purchases sorted, so we can return their strings from here
+		for (int i = 0; i < sortedPurchases.size() - 1; ++i)
+		{
+			returnMe += sortedPurchases.get(i).toString() + ", ";
+		}
+		
+		// add last purchase without comma and space at the end
+		returnMe += sortedPurchases.get(sortedPurchases.size() - 1).toString();
+		
+		return returnMe;
 	}
 
 }

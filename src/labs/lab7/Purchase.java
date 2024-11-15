@@ -8,7 +8,9 @@ import java.time.LocalDate;
  */
 public class Purchase implements Comparable<Purchase> {
 
-	// ADD YOUR INSTANCE VARIABLES HERE
+	private LocalDate date;
+	private String description;
+	private double amount;
 
 	/**
 	 * Constructs a new Purchase
@@ -18,22 +20,24 @@ public class Purchase implements Comparable<Purchase> {
 	 * @param amount      the amount of the purchase (if < 0, sets it to 0)
 	 */
 	public Purchase(LocalDate date, String description, double amount) {
-		// FILL IN
+		this.date = date;
+		this.description = description;
+		this.amount = amount;
 	}
 
 
 	public LocalDate getDate() {
-		return LocalDate.now(); // FIX ME
+		return date;
 	}
 
 
 	public String getDescription() {
-		return ""; // FIX ME
+		return description;
 	}
 
 
 	public double getAmount() {
-		return -1.0; // FIX ME
+		return amount;
 	}
 
 
@@ -43,7 +47,7 @@ public class Purchase implements Comparable<Purchase> {
 	 */
 	@Override
 	public String toString() {
-		return ""; // FIX ME
+		return date.toString() + " " + description + " " + amount;
 	}
 
 
@@ -52,7 +56,11 @@ public class Purchase implements Comparable<Purchase> {
 	 */
 	@Override
 	public boolean equals(Object o) {
-		return false; // FIX ME
+		Purchase other = (Purchase) o;
+		
+		return date.equals(other.date) && 
+				description.equals(other.description) && 
+				amount == other.amount;
 	}
 
 
@@ -61,7 +69,15 @@ public class Purchase implements Comparable<Purchase> {
 	 * first), then by description (lexicographically)
 	 */
 	public int compareTo(Purchase other) {
-		return -1; // FIX ME
+		if (date.compareTo(other.date) < 0) return -1;
+		else if (date.compareTo(other.date) > 0) return 1;
+		
+		// dates are equal so compare amounts
+		if (amount > other.amount) return -1; 
+		else if (amount < other.amount) return 1;
+		
+		// amounts are equal so compare descriptions
+		return description.compareTo(other.description);
 	}
 
 }
