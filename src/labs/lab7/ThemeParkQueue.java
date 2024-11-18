@@ -1,17 +1,22 @@
 package labs.lab7;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 /**
  * Class for simulating a queue for a theme park attraction.
  */
 public class ThemeParkQueue {
 
-	// ADD YOUR INSTANCE VARIABLES HERE
+	private Queue<String> premium;
+	private Queue<String> standard;
 
 	/**
 	 * Constructor
 	 */
 	public ThemeParkQueue() {
-		// FILL IN
+		premium = new LinkedList<String>();
+		standard = new LinkedList<String>();
 	}
 
 
@@ -21,7 +26,7 @@ public class ThemeParkQueue {
 	 * @param guestName name of the guest
 	 */
 	public void addStandardGuest(String guestName) {
-		// FILL IN
+		standard.add(guestName);
 	}
 
 
@@ -31,7 +36,7 @@ public class ThemeParkQueue {
 	 * @param guestName name of the guest
 	 */
 	public void addPremiumGuest(String guestName) {
-		// FILL IN
+		premium.add(guestName);
 	}
 
 
@@ -42,7 +47,21 @@ public class ThemeParkQueue {
 	 * @return a string indicating the next action
 	 */
 	public String handleNextAction() {
-		return ""; // FIX ME
+		// premium line gets priority
+		if (premium.size() > 0)
+		{
+			String name = premium.remove();
+			
+			return name + " entering from premium line";
+		}
+		else if (standard.size() > 0)
+		{
+			String name = standard.remove();
+			
+			return name + " entering from standard line";
+		}
+		
+		return "";
 	}
 
 }
