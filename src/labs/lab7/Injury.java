@@ -40,7 +40,7 @@ public enum Injury {
 	 * @return	the triage level corresponding to the given injury
 	 */
 	public static int getTriageLevel(Injury injury) {
-		return -1; // FILL IN
+		return triageTable.get(injury);
 	}
 
 }

@@ -5,28 +5,30 @@ package labs.lab7;
  */
 public class Patient implements Comparable<Patient> {
 
-	// ADD YOUR INSTANCE VARIABLES HERE
+	private Injury injury;
+	private String description;
 
 	/**
 	 * Creates a new Patient object with the given injury and description
 	 */
 	public Patient(Injury injury, String description) {
-		// FILL IN
+		this.injury = injury;
+		this.description = description;
 	}
 
 
 	public int getPriority() {
-		return -1; // FIX ME
+		return Injury.getTriageLevel(injury);
 	}
 
 
 	public Injury getInjury() {
-		return Injury.SEIZURE; // FIX ME
+		return injury;
 	}
 
 
 	public String getDescription() {
-		return ""; // FIX ME
+		return description;
 	}
 
 
@@ -35,7 +37,11 @@ public class Patient implements Comparable<Patient> {
 	 */
 	@Override
 	public int compareTo(Patient p) {
-		return -1; // FIX ME
+		if (getPriority() < p.getPriority())
+			return -1;
+		else if (getPriority() > p.getPriority())
+			return 1;
+		return 0;
 	}
 	
 	
@@ -45,7 +51,26 @@ public class Patient implements Comparable<Patient> {
 	 */
 	@Override
 	public String toString() {
-		return ""; // FIX ME
+		String returnMe = "Injury: ";
+		
+		if (injury == Injury.SEIZURE) 
+			returnMe += "SEIZURE";
+		else if (injury == Injury.HEMORRHAGE)
+			returnMe += "HEMORRHAGE";
+		else if (injury == Injury.CHEST_PAIN)
+			returnMe += "CHEST PAIN";
+		else if (injury == Injury.BURN)
+			returnMe += "BURN";
+		else if (injury == Injury.FRACTURE)
+			returnMe += "FRACTURE";
+		else if (injury == Injury.ABDOMINAL_PAIN)
+			returnMe += "ABDOMINAL PAIN";
+		else
+			returnMe += "OTHER";
+		
+		returnMe += ", Description: " + description;
+		
+		return returnMe;
 	}
 
 }
