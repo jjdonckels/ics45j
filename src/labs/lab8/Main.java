@@ -1,5 +1,6 @@
 package labs.lab8;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
@@ -16,7 +17,13 @@ public class Main {
 	// WRITE PROBLEM 1 METHOD HERE
 	public static <T> List<T> problem1_reverse(List<T> a)
 	{
-		return a;
+		if (a.isEmpty()) return a;
+		
+		ArrayList<T> returnMe = new ArrayList<>();
+		for (int i = a.size() - 1; i >= 0; --i)
+			returnMe.add(a.get(i));
+		
+		return returnMe;
 	}
 	
 	/**
