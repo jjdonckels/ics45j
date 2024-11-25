@@ -42,6 +42,13 @@ public class Main {
 	// WRITE PROBLEM 2 METHOD HERE
 	public static <E, T extends Iterable<E>> String problem2_getElements(T iterable)
 	{
-		return "";
+		String returnMe = "";
+		for (E elmnt : iterable)
+			returnMe += elmnt + ", ";
+		
+		if (returnMe.length() > 2)
+			return returnMe.substring(0, returnMe.length() - 2);
+		else
+			return returnMe;
 	}
 }
