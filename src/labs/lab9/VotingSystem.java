@@ -1,11 +1,16 @@
 package labs.lab9;
 
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
@@ -14,8 +19,15 @@ import javax.swing.JTextField;
 public class VotingSystem
 {
 	
+	
 	public static void main (String[] args)
 	{
+		class ExitItemListener implements ActionListener {
+			public void actionPerformed(ActionEvent event) {
+				System.exit(0);
+			}
+		}
+		
 		System.out.println("voting system");
 		
 		final int TEXT_WIDTH = 25;
@@ -111,16 +123,30 @@ public class VotingSystem
 		 
 		 System.out.println("Checkpoint 3");
 		 
+		// create frame for main voting window
 		JFrame mainFrame = new JFrame(); 
-		mainFrame.setSize(400, 400);
+		mainFrame.setSize(500, 800);
 		mainFrame.setTitle("Voting System - James Donckels - 88857323");
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		JTextArea data = new JTextArea(10, TEXT_WIDTH);
-		data.setText(input);
-		data.setEditable(false);
+		// add the file menu with exit button to the frame
+		// create menu bar
+		JMenuBar menuBar = new JMenuBar();
+		mainFrame.setJMenuBar(menuBar);
+		// add menu to the menu bar
+		JMenu fileMenu = new JMenu("File");
+		menuBar.add(fileMenu);
+		// add exit menu item to file menu
+		JMenuItem exitItem = new JMenuItem("Exit");
+		fileMenu.add(exitItem);
+		// add listener to exit menu item
+		ActionListener exitListener = new ExitItemListener();
+		exitItem.addActionListener(exitListener);
 		
-		mainFrame.add(data);
+		
+		
+		
+		
 		
 		mainFrame.setVisible(true);
 		 
