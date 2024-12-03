@@ -17,15 +17,10 @@ public class VotingSystem
 	public static void main (String[] args)
 	{
 		System.out.println("voting system");
-//		Object[] options = { "OK", "CANCEL" };
-		
-		JFrame mainFrame = new JFrame();
 		
 		final int TEXT_WIDTH = 25;
 		
-		
-//		JOptionPane pane = new JOptionPane();
-//		pane.setMessage("Election Info");
+		// MAKE FIRST ELECTION INFO DIALOG
 		
 		// make "Election Name:" Label
 		JLabel electionNameLabel = new JLabel("Election Name:");
@@ -74,6 +69,70 @@ public class VotingSystem
 		electionInfoPanel.add(numPropsSubPanel);
 		
 		
+
+		
+		System.out.println("checkpoint 1");
+		
+		Object[] options = { "OK", "CANCEL" };
+		
+		boolean validElectionInput = false;
+		String electionName = "";
+		String candidateNameA = "";
+		String candidateNameB = "";
+		String propNumber = "";
+		
+		do {
+		
+		// display election info dialog, and reprompt if fields left blank
+		int electionInfoResult = JOptionPane.showOptionDialog(null, electionInfoPanel, "Election Info",
+		             JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE,
+		             null, options, options[0]);
+		 
+		 if (electionInfoResult == 1 || electionInfoResult == -1) System.exit(0);
+		 
+		 System.out.println("checkpoint 2");
+		 
+		 
+		 System.out.println("dialog: " + electionInfoResult);
+		 
+		 electionName = electionNameField.getText().trim();
+		 candidateNameA = candidateANameField.getText().trim();
+		 candidateNameB = candidateBNameField.getText().trim();
+		 propNumber = (String) propNumsComboBox.getSelectedItem();
+		 
+		 validElectionInput = !electionName.isEmpty() && 
+				!candidateNameA.isEmpty() && 
+				!candidateNameB.isEmpty();
+		 
+		} while (!validElectionInput);
+		 
+		 String input = electionName + "\n" + candidateNameA + "\n" + candidateNameB + "\n" + propNumber;
+		 System.out.println(input);
+		 
+		 System.out.println("Checkpoint 3");
+		 
+		JFrame mainFrame = new JFrame(); 
+		mainFrame.setSize(400, 400);
+		mainFrame.setTitle("Voting System - James Donckels - 88857323");
+		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		JTextArea data = new JTextArea(10, TEXT_WIDTH);
+		data.setText(input);
+		data.setEditable(false);
+		
+		mainFrame.add(data);
+		
+		mainFrame.setVisible(true);
+		 
+		 
+		
+
+		
+		System.out.println("end program");
+		
+		
+		
+		
 //		electionInfoPanel.add(electionNameLabel);
 //		electionInfoPanel.add(electionNameField);
 		
@@ -113,41 +172,6 @@ public class VotingSystem
 		
 //		Object toDisplay = electionInfoPanel;
 		
-		System.out.println("checkpoint 1");
-		
-		Object[] options = { "OK", "CANCEL" };
-		 int result = JOptionPane.showOptionDialog(null, electionInfoPanel, "Election Info",
-		             JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE,
-		             null, options, options[0]);
-		 
-		 System.out.println("checkpoint 2");
-		 
-		 System.out.println("dialog: " + result);
-		 
-		 int electionName = electionNameField.getText().trim().length();
-		 String nameA = candidateANameField.getText();
-		 String nameB = candidateBNameField.getText();
-		 String propNumber = (String) propNumsComboBox.getSelectedItem();
-		 
-		 String input = electionName + "\n" + nameA + "\n" + nameB + "\n" + propNumber;
-		 System.out.println(input);
-		 
-		 System.out.println("Checkpoint 3");
-		 
-		 
-		mainFrame.setSize(400, 400);
-		mainFrame.setTitle("Frame Title");
-		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-		JTextArea data = new JTextArea(10, TEXT_WIDTH);
-		data.setText(input);
-		data.setEditable(false);
-		
-		mainFrame.add(data);
-		
-		mainFrame.setVisible(true);
-		 
-		 
 		
 //		String inputValue = JOptionPane.showInputDialog("Please input a value");
 //		System.out.println("Input: " + inputValue + "\n");
@@ -211,8 +235,6 @@ public class VotingSystem
 //		optionPane.setVisible(true);
 //		mainFrame.add(optionPane);
 //		mainFrame.setVisible(true);
-		
-		System.out.println("end program");
 	}
 	
 }
