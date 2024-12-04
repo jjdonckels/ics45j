@@ -103,7 +103,7 @@ public class VotingSystem
 			
 			// create main panel for "Cast Vote" screen
 			JPanel castVoteInfoPanel = new JPanel();
-			castVoteInfoPanel.setLayout(new GridLayout(3, 1));
+			castVoteInfoPanel.setLayout(new BorderLayout());
 			
 			// create candidates voting panel
 			JPanel candidateVotingPanel = new JPanel();
@@ -123,10 +123,38 @@ public class VotingSystem
 			candidateVotingPanel.add(candidateAButton);
 			candidateVotingPanel.add(candidateBButton);
 			// add candidates voting panel to main "Cast Vote" info panel
-			castVoteInfoPanel.add(candidateVotingPanel);
+			castVoteInfoPanel.add(candidateVotingPanel, BorderLayout.NORTH);
 			
 			
-			// display vote casting info
+			
+			// create propositions voting panel
+			JPanel propositionsVotingPanel = new JPanel();
+			propositionsVotingPanel.setBorder(new TitledBorder(new EtchedBorder(), "Propositions:"));
+			// set grid layout for all props to have their own row
+			propositionsVotingPanel.setLayout(new GridLayout(propNumber, 1));
+			// create array of subpanels so each proposition has its own
+			JPanel[] propPanels = new JPanel[propNumber];
+			// loop through and initialize all subpanels, adding a proposition label to each
+			// then add each panel to the main propositions panel
+			for (int i = 0; i < propNumber; ++i)
+			{
+				propPanels[i] = new JPanel();
+				propPanels[i].add(new JLabel("Prop " + (i + 1) + ":"));
+				propositionsVotingPanel.add(propPanels[i]);
+			}
+			// add propositions voting panel to main "Cast Vote" info panel
+			castVoteInfoPanel.add(propositionsVotingPanel, BorderLayout.CENTER);
+			
+			
+			
+			// create donation input panel 
+			JPanel donationInputPanel = new JPanel();
+			donationInputPanel.setBorder(new TitledBorder(new EtchedBorder(), "Donation:"));
+			// add donation input panel to main "Cast Vote" info panel
+			castVoteInfoPanel.add(donationInputPanel, BorderLayout.SOUTH);
+			
+			
+			// display vote casting info dialog
 			int castVoteResult = JOptionPane.showOptionDialog(mainFrame, castVoteInfoPanel, "Cast Vote",
 			             JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE,
 			             null, options, options[0]);
