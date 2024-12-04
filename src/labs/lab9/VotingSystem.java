@@ -24,22 +24,35 @@ import javax.swing.border.TitledBorder;
 
 public class VotingSystem
 {
+	static final int TEXT_WIDTH = 25;
 	
+	static final Object[] options = { "OK", "CANCEL" };
 	
-	public static void main (String[] args)
-	{
-		class ExitItemListener implements ActionListener {
-			public void actionPerformed(ActionEvent event) {
-				System.exit(0);
-			}
+	static final int FRAME_WIDTH = 500;
+	static final int FRAME_HEIGHT = 800;
+	
+	private String electionName;
+	private String candidateNameA;
+	private String candidateNameB;
+	private String propNumber;
+	
+	// class to listen to exit button in file menu
+	class ExitItemListener implements ActionListener {
+		public void actionPerformed(ActionEvent event) {
+			System.exit(0);
 		}
-		
-		System.out.println("voting system");
-		
-		final int TEXT_WIDTH = 25;
-		
-		
-		
+	}
+	
+	// class to listen to "Cast Vote" button
+	class VoteListener implements ActionListener {
+		public void actionPerformed(ActionEvent event)
+		{
+			System.out.println("Cast Vote");
+		}
+	}
+	
+	public VotingSystem() 
+	{
 		// MAKE FIRST ELECTION INFO DIALOG
 		
 		// make "Election Name:" Label
@@ -89,17 +102,13 @@ public class VotingSystem
 		electionInfoPanel.add(numPropsSubPanel);
 		
 		
-
+	
 		
-		System.out.println("checkpoint 1");
 		
-		Object[] options = { "OK", "CANCEL" };
+		
 		
 		boolean validElectionInput = false;
-		String electionName = "";
-		String candidateNameA = "";
-		String candidateNameB = "";
-		String propNumber = "";
+		
 		
 		do {
 		
@@ -125,16 +134,21 @@ public class VotingSystem
 				!candidateNameB.isEmpty();
 		 
 		} while (!validElectionInput);
+		
+		
+		
 		 
 		 String input = electionName + "\n" + candidateNameA + "\n" + candidateNameB + "\n" + propNumber;
 		 System.out.println(input);
 		 
 		 System.out.println("Checkpoint 3");
 		 
+		 
+		 
+		 
 		// create frame for main voting window
 		 
-		final int FRAME_WIDTH = 500;
-		final int FRAME_HEIGHT = 800;
+		
 		 
 		JFrame mainFrame = new JFrame(); 
 		mainFrame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
@@ -224,13 +238,6 @@ public class VotingSystem
 		
 		// create "Cast Vote" button
 		JButton castVoteButton = new JButton("Cast Vote");
-		// class to listen to button
-		class VoteListener implements ActionListener {
-			public void actionPerformed(ActionEvent event)
-			{
-				System.out.println("Cast Vote");
-			}
-		}
 		// create a listener and connect it to the button
 		ActionListener voteButtonListener = new VoteListener();
 		castVoteButton.addActionListener(voteButtonListener);
@@ -251,116 +258,33 @@ public class VotingSystem
 		mainFrame.setVisible(true);
 		 
 		 
+		 
+	}
+	
+	
+	
+	
+	public static void main (String[] args)
+	{
+		
+		
+		System.out.println("voting system");
+		
+		VotingSystem lab9 = new VotingSystem();
+		
+		
+		
+		
+		
+		
+		 
+		
+		 
+		 
 		
 
 		
 		System.out.println("end program");
-		
-		
-		
-		
-//		electionInfoPanel.add(electionNameLabel);
-//		electionInfoPanel.add(electionNameField);
-		
-//		electionInfoPanel.add(candidateANameLabel);
-//		electionInfoPanel.add(candidateANameField);
-//		
-//		electionInfoPanel.add(candidateBNameLabel);
-//		electionInfoPanel.add(candidateBNameField);
-		
-		
-		
-		// add "Election Name:" to pane
-//		pane.add(electionNamePanel);
-		
-		
-		
-//		mainFrame.add(electionInfoPanel);
-//		mainFrame.setVisible(true);
-		
-		
-//		int a = JOptionPane.showOptionDialog(null, "message", "title", 0, JOptionPane.PLAIN_MESSAGE, null, options, null);
-//		
-//		System.out.println(a + " " + JOptionPane.OK_OPTION);
-//		JDialog dialog = pane.createDialog("Dialog title");
-		
-//		JOptionPane.showMessageDialog(null, "alert", "alert", JOptionPane.ERROR_MESSAGE);
-		
-//		JOptionPane.showInternalMessageDialog(electionNamePanel, "information",
-//	             "information", JOptionPane.INFORMATION_MESSAGE);
-		
-//		JOptionPane.showConfirmDialog(null,
-//	             "choose one", "choose one", JOptionPane.YES_NO_OPTION);
-		
-//		JOptionPane.showInternalConfirmDialog(electionNamePanel,
-//	             "please choose one", "information",
-//	             JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
-		
-//		Object toDisplay = electionInfoPanel;
-		
-		
-//		String inputValue = JOptionPane.showInputDialog("Please input a value");
-//		System.out.println("Input: " + inputValue + "\n");
-		
-		/*Object[] possibleValues = //{ "First", "Second", "Third" };
-			{ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15};
-
-		Object toDisplay = electionInfoPanel;
-		
-		 Object selectedValue = JOptionPane.showInputDialog(null,
-		             toDisplay, "Election Info",
-		             JOptionPane.PLAIN_MESSAGE, null,
-		             possibleValues, possibleValues[0]);
-		 System.out.println("selection: " + selectedValue); */
-		
-//		Object[] possibleValues = { "First", "Second", "Third" };
-//
-//		 Object selectedValue = JOptionPane.showInputDialog(null,
-//		             "Choose one", "Input",
-//		             JOptionPane.WARNING_MESSAGE, null,
-//		             possibleValues, possibleValues[0]);
-		
-		
-		
-		
-		
-		
-//		mainFrame.add(pane);
-		
-		
-//		dialog.add(pane);
-//		dialog.setVisible(true);
-		
-		
-		
-//		dialog.setVisible(true);
-		
-		
-//		JOptionPane.showOptionDialog(null, "Click OK to continue", "Warning",
-//		             JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE,
-//		             null, options, options[0]);
-		
-//		dialog.show();
-		
-//		JFrame frame = new JFrame();
-//		frame.setSize(300, 400);
-//		frame.setTitle("Frame title");
-//		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//		
-//		frame.add(pane);
-//		
-//		frame.setVisible(true);
-		
-		
-//		final JOptionPane optionPane = new JOptionPane(
-//			    "The only way to close this dialog is by\n"
-//			    + "pressing one of the following buttons.\n"
-//			    + "Do you understand?",
-//			    JOptionPane.QUESTION_MESSAGE,
-//			    JOptionPane.YES_NO_OPTION);
-//		optionPane.setVisible(true);
-//		mainFrame.add(optionPane);
-//		mainFrame.setVisible(true);
 	}
 	
 }
