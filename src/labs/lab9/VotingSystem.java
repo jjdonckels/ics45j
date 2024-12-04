@@ -1,6 +1,7 @@
 package labs.lab9;
 
 import java.awt.BorderLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -26,15 +27,27 @@ public class VotingSystem
 {
 	static final int TEXT_WIDTH = 25;
 	
+	static final int NUM_CANDIDATES = 2;
+	
 	static final Object[] options = { "OK", "CANCEL" };
 	
 	static final int FRAME_WIDTH = 500;
 	static final int FRAME_HEIGHT = 800;
 	
+	
 	private String electionName;
 	private String candidateNameA;
 	private String candidateNameB;
-	private String propNumber;
+	private int propNumber;
+	private double donationTotal;
+	
+	private JLabel donationLabel;
+	
+	private JLabel[][] propositionLabels;
+	private JLabel[] candidateLabels;
+	
+	private Candidate[] candidatesArr;
+	private Proposition[] propsArr;
 	
 	// class to listen to exit button in file menu
 	class ExitItemListener implements ActionListener {
@@ -48,11 +61,64 @@ public class VotingSystem
 		public void actionPerformed(ActionEvent event)
 		{
 			System.out.println("Cast Vote");
+			donationTotal += 5.55;
+			donationLabel.setText(String.format("Donation total: $%.2f", donationTotal));
+			
+		}
+	}
+	
+	class Candidate
+	{
+		private String name;
+		private int numVotes;
+		
+		public Candidate(String name)
+		{
+			this.name = name;
+			numVotes = 0;
+		}
+		
+		public String getName() {return name;}
+		public int numVotes() {return numVotes;}
+		public void addVote() {numVotes++;}
+		
+		public String toString() 
+		{
+			return name + ": " + numVotes;
+		}
+	}
+	
+	class Proposition
+	{
+		private int propNum;
+		private int yesCount;
+		private int noCount;
+		
+		public Proposition(int n)
+		{
+			propNum = n;
+			yesCount = 0;
+			noCount = 0;
+		}
+		
+		public void addYes() {yesCount++;}
+		public void addNo() {noCount++;}
+		public int getNum() {return propNum;}
+		public int getYes() {return yesCount;}
+		public int getNo() {return noCount;}
+		
+		public String toString()
+		{
+			return "" + propNum + ": YES: " + 
+					yesCount + " votes, NO: " + 
+					noCount + " votes";
 		}
 	}
 	
 	public VotingSystem() 
 	{
+		donationTotal = 0;
+		
 		// MAKE FIRST ELECTION INFO DIALOG
 		
 		// make "Election Name:" Label
@@ -127,13 +193,16 @@ public class VotingSystem
 		 electionName = electionNameField.getText().trim();
 		 candidateNameA = candidateANameField.getText().trim();
 		 candidateNameB = candidateBNameField.getText().trim();
-		 propNumber = (String) propNumsComboBox.getSelectedItem();
+		 // take proposition number from JComboBox and convert to int
+		 propNumber = Integer.parseInt(((String) propNumsComboBox.getSelectedItem()));
 		 
 		 validElectionInput = !electionName.isEmpty() && 
 				!candidateNameA.isEmpty() && 
 				!candidateNameB.isEmpty();
 		 
 		} while (!validElectionInput);
+		
+		
 		
 		
 		
@@ -188,14 +257,56 @@ public class VotingSystem
 		// set up candidate info panel
 		JPanel candidateInfoPanel = new JPanel();
 		candidateInfoPanel.setBorder(new TitledBorder(new EtchedBorder(), "Candidates:"));
+		candidateInfoPanel.setLayout(new GridLayout(2, 1));
 		// add candidate panel to voting info panel 
 		votingInfoPanel.add(candidateInfoPanel);
+		
+		// populate candidateInfoPanel with labels of candidates names and vote counts
+		// initialize candidate array info
+		candidateLabels = new JLabel[NUM_CANDIDATES];
+		candidatesArr = new Candidate[NUM_CANDIDATES];
+		candidatesArr[0] = new Candidate(candidateNameA);
+		candidatesArr[1] = new Candidate(candidateNameB);
+		candidateLabels[0] = new JLabel(candidatesArr[0].toString());
+		candidateLabels[1] = new JLabel(candidatesArr[1].toString());
+		// bold both candidates since initially tied at 0 votes each
+		Font candidateFont = candidateLabels[0].getFont();
+		candidateLabels[0].setFont(new Font(candidateFont.getName(), Font.BOLD, candidateFont.getSize()));
+		candidateLabels[1].setFont(new Font(candidateFont.getName(), Font.BOLD, candidateFont.getSize()));
+		
+		// add candidate labels to candidate info panel
+		candidateInfoPanel.add(candidateLabels[0]);
+		candidateInfoPanel.add(candidateLabels[1]);
+		
+		
 		
 		// set up proposition info panel
 		JPanel propositionInfoPanel = new JPanel();
 		propositionInfoPanel.setBorder(new TitledBorder(new EtchedBorder(), "Propositions:"));
+		propositionInfoPanel.setLayout(new GridLayout(propNumber, 3));
 		// add proposition panel to voting info panel 
 		votingInfoPanel.add(propositionInfoPanel);
+		// initialize proposition array info
+		propositionLabels = new JLabel[propNumber][3];
+		propsArr = new Proposition[propNumber];
+		for (int i = 0; i < propNumber; ++i)
+		{
+			propsArr[i] = new Proposition(i + 1);
+			propositionLabels[i][0] = new JLabel("" + (i + 1) + ":");
+			propositionLabels[i][0].setHorizontalAlignment(SwingConstants.CENTER);
+			Font propFont = propositionLabels[i][0].getFont();
+			
+			propositionLabels[i][1] = new JLabel("YES: " + propsArr[i].getYes() + " votes");
+			// bold yes votes since tied with no votes
+			propositionLabels[i][1].setFont(new Font(propFont.getName(), Font.BOLD, propFont.getSize()));
+			propositionLabels[i][2] = new JLabel("NO: " + propsArr[i].getNo() + " votes");
+			// bold no votes since tied with yes votes
+			propositionLabels[i][2].setFont(new Font(propFont.getName(), Font.BOLD, propFont.getSize()));
+			
+			propositionInfoPanel.add(propositionLabels[i][0]);
+			propositionInfoPanel.add(propositionLabels[i][1]);
+			propositionInfoPanel.add(propositionLabels[i][2]);
+		}		
 		
 		
 		
@@ -205,8 +316,7 @@ public class VotingSystem
 		votingInfoPanel.add(notesInfoPanel);
 		
 		// create donation label
-		double donationTotal = 0;
-		JLabel donationLabel = new JLabel(String.format("Donation total: $%.2f", donationTotal));
+		donationLabel = new JLabel(String.format("Donation total: $%.2f", donationTotal));
 		// center donation label
 		donationLabel.setHorizontalAlignment(JLabel.CENTER);
 		// add donation label to north of notes info panel
