@@ -58,6 +58,10 @@ public class VotingSystem
 	private JRadioButton candidateBButton;
 	private boolean candidateButtonStates[];
 	
+	private JRadioButton[][] propButtons;
+	private ButtonGroup[] propButtonGroups;
+	private boolean propButtonStates[][];
+	
 	// class to listen to exit button in file menu
 	class ExitItemListener implements ActionListener {
 		public void actionPerformed(ActionEvent event) {
@@ -97,6 +101,12 @@ public class VotingSystem
 			
 			// reset button states
 			candidateButtonStates = new boolean[2];
+			propButtonStates = new boolean[propNumber][2];
+			for(int i = 0; i < propNumber; ++i)
+			{
+				propButtonStates[i][0] = false;
+				propButtonStates[i][1] = false;
+			}
 			
 			// set up button listener to listen to all buttons in "Cast Vote" window
 			buttonListener = new ChoiceListener();
@@ -145,6 +155,41 @@ public class VotingSystem
 			// add propositions voting panel to main "Cast Vote" info panel
 			castVoteInfoPanel.add(propositionsVotingPanel, BorderLayout.CENTER);
 			
+			// create propositions radio buttons
+			propButtons = new JRadioButton[propNumber][2];
+			propButtonGroups = new ButtonGroup[propNumber];
+			for (int i = 0; i < propNumber; ++i)
+			{
+				// make ith yes button and listener
+				propButtons[i][0] = new JRadioButton("YES");
+				propButtons[i][0].addActionListener(buttonListener);
+				
+				// make ith no button and listener
+				propButtons[i][1] = new JRadioButton("NO");
+				propButtons[i][1].addActionListener(buttonListener);
+				
+				// add ith yes and no buttons to ith button group for exclusivity
+				propButtonGroups[i] = new ButtonGroup();
+				propButtonGroups[i].add(propButtons[i][0]);
+				propButtonGroups[i].add(propButtons[i][1]);
+				
+				// add ith yes and no buttons to ith propPanel
+				propPanels[i].add(propButtons[i][0]);
+				propPanels[i].add(propButtons[i][1]);
+				
+			}
+			
+			
+			// button construction list
+			// construct buttons
+			// add listeners
+			// construct button group
+			// add buttons to button group
+			// add buttons to panel =========
+			// each prop has 2 buttons, each button has 2 states
+			// so we need a 2d array of props in rows and yes and no buttons in the 2 columns
+			// then we need branches to update states depending on which button is selected
+			// then we need to apply those state changes to the actual propositions once the okay button is clicked
 			
 			
 			// create donation input panel 
@@ -162,13 +207,27 @@ public class VotingSystem
 			if (castVoteResult == 0)
 			{				
 				// update candidate votes
-				if (candidateButtonStates[0])
+				if (candidateButtonStates[0]) // a was selected
 					candidatesArr[0].addVote();
-				else if (candidateButtonStates[1])
+				else if (candidateButtonStates[1]) // b was selected
 					candidatesArr[1].addVote();
 				
 				updateCandidateLabels();
+				
+				
+				// update proposition vote totals
+				// loop through each proposition and check if it was voted for
+				for (int i = 0; i < propNumber; ++i)
+				{
+					// add votes to the appropriate proposition selections
+					if (propButtonStates[i][0]) // yes is selected for the ith prop
+						propsArr[i].addYes();
+					else if (propButtonStates[i][1]) // no is selected for the ith prop
+						propsArr[i].addNo();
+				}				
+				
 				updatePropositionLabels();
+				
 				
 				mainFrame.revalidate();
 				mainFrame.repaint();
@@ -196,6 +255,24 @@ public class VotingSystem
 				candidateButtonStates[0] = false;
 				candidateButtonStates[1] = true;
 			}
+			
+			// every time "Cast Vote" is clicked, we need to update the state arrays for the buttons
+			// we can loop through all the propositions, and check the yes and no buttons for each one individually
+			for (int i = 0; i < propNumber; ++i)
+			{
+				if (propButtons[i][0].isSelected()) // yes is selected for the ith prop
+				{
+					propButtonStates[i][0] = true;
+					propButtonStates[i][1] = false;
+				}
+				else if (propButtons[i][1].isSelected()) // no is selected for the ith prop
+				{
+					propButtonStates[i][0] = false;
+					propButtonStates[i][1] = true;
+				}
+			}
+			
+			
 		}
 	}
 	
