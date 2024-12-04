@@ -1,9 +1,11 @@
 package labs.lab9;
 
+import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -13,8 +15,12 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.border.EtchedBorder;
+import javax.swing.border.TitledBorder;
 
 public class VotingSystem
 {
@@ -31,6 +37,8 @@ public class VotingSystem
 		System.out.println("voting system");
 		
 		final int TEXT_WIDTH = 25;
+		
+		
 		
 		// MAKE FIRST ELECTION INFO DIALOG
 		
@@ -124,8 +132,12 @@ public class VotingSystem
 		 System.out.println("Checkpoint 3");
 		 
 		// create frame for main voting window
+		 
+		final int FRAME_WIDTH = 500;
+		final int FRAME_HEIGHT = 800;
+		 
 		JFrame mainFrame = new JFrame(); 
-		mainFrame.setSize(500, 800);
+		mainFrame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
 		mainFrame.setTitle("Voting System - James Donckels - 88857323");
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
@@ -144,10 +156,98 @@ public class VotingSystem
 		exitItem.addActionListener(exitListener);
 		
 		
+		// add label for election name at top of frame
+		JLabel electionNameLabelHeader = new JLabel(electionName);
+		// set up layout for voting window with main panel
+		JPanel mainPanel = new JPanel();
+		mainPanel.setLayout(new BorderLayout());
+		// add election name header label to top of main panel
+		mainPanel.add(electionNameLabelHeader, BorderLayout.NORTH);
+		
+		
+		// add subpanel to hold a 3 x 1 grid of candidates, propositions, and notes
+		JPanel votingInfoPanel = new JPanel();
+		votingInfoPanel.setLayout(new GridLayout(3, 1));
+		// add this panel to the main panel in the center
+		mainPanel.add(votingInfoPanel, BorderLayout.CENTER);
+		
+		// set up candidate info panel
+		JPanel candidateInfoPanel = new JPanel();
+		candidateInfoPanel.setBorder(new TitledBorder(new EtchedBorder(), "Candidates:"));
+		// add candidate panel to voting info panel 
+		votingInfoPanel.add(candidateInfoPanel);
+		
+		// set up proposition info panel
+		JPanel propositionInfoPanel = new JPanel();
+		propositionInfoPanel.setBorder(new TitledBorder(new EtchedBorder(), "Propositions:"));
+		// add proposition panel to voting info panel 
+		votingInfoPanel.add(propositionInfoPanel);
+		
+		
+		
+		// set up notes info panel
+		JPanel notesInfoPanel = new JPanel();
+		// add notes info panel to voting info panel
+		votingInfoPanel.add(notesInfoPanel);
+		
+		// create donation label
+		double donationTotal = 0;
+		JLabel donationLabel = new JLabel(String.format("Donation total: $%.2f", donationTotal));
+		// center donation label
+		donationLabel.setHorizontalAlignment(JLabel.CENTER);
+		// add donation label to north of notes info panel
+		notesInfoPanel.add(donationLabel);
+		
+		// create subpanel for notes and text area
+		JPanel notesPlusTextPanel = new JPanel();
+		
+		// create notes label
+		JLabel notesLabel = new JLabel("Notes:");
+		// move notes label to the center
+		notesLabel.setHorizontalAlignment(JLabel.CENTER);
+		// add notes label to notes and text subpanel
+		notesPlusTextPanel.add(notesLabel);
+		
+		// create notes text area
+		final int TEXT_ROWS = 5;
+		final int TEXT_COLUMNS = 30;
+		JTextArea notesTextArea = new JTextArea(TEXT_ROWS, TEXT_COLUMNS);
+		notesTextArea.setEditable(true);
+		notesTextArea.setLineWrap(true);
+		// make text area scrollable by putting in a scroll pane
+		JScrollPane notesScrollPane = new JScrollPane(notesTextArea);
+		// add scroll pane to notes and text subpanel
+		notesPlusTextPanel.add(notesScrollPane);
+		
+		// add notes and text subpanel to main notes info panel
+		notesInfoPanel.add(notesPlusTextPanel);
+		
+		// create "Cast Vote" button
+		JButton castVoteButton = new JButton("Cast Vote");
+		// class to listen to button
+		class VoteListener implements ActionListener {
+			public void actionPerformed(ActionEvent event)
+			{
+				System.out.println("Cast Vote");
+			}
+		}
+		// create a listener and connect it to the button
+		ActionListener voteButtonListener = new VoteListener();
+		castVoteButton.addActionListener(voteButtonListener);
+		// center button
+		castVoteButton.setHorizontalAlignment(SwingConstants.CENTER);
+		// add button to south of notes info panel
+		notesInfoPanel.add(castVoteButton);
 		
 		
 		
 		
+		
+		
+		
+		
+		
+		mainFrame.add(mainPanel);
 		mainFrame.setVisible(true);
 		 
 		 
