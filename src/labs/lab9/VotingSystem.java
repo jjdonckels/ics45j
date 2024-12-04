@@ -6,6 +6,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
@@ -16,6 +17,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -51,6 +53,11 @@ public class VotingSystem
 	private Candidate[] candidatesArr;
 	private Proposition[] propsArr;
 	
+	private ActionListener buttonListener;
+	private JRadioButton candidateAButton;
+	private JRadioButton candidateBButton;
+	private boolean candidateButtonStates[];
+	
 	// class to listen to exit button in file menu
 	class ExitItemListener implements ActionListener {
 		public void actionPerformed(ActionEvent event) {
@@ -62,31 +69,82 @@ public class VotingSystem
 	class VoteListener implements ActionListener {
 		public void actionPerformed(ActionEvent event)
 		{
-			System.out.println("Cast Vote");
+//			System.out.println("Cast Vote");
+//			
+//			// change donation total
+//			donationTotal += 5.55;
+//			donationLabel.setText(String.format("Donation total: $%.2f", donationTotal));
+//			
+//			
+//			for(int i = 1; i < 5; ++i)
+//				candidatesArr[1].addVote();
+//			for(int i = 1; i <= 8; ++i)
+//				candidatesArr[0].addVote();
+//			
+//			updateCandidateLabels();
+//			
+//			
+//			for(int i = 0; i < propNumber; ++i)
+//			{
+//				propsArr[i].addYes();
+//				propsArr[i].addNo();
+//			}			
+//			
+//			updatePropositionLabels();
+//			
+//			mainFrame.revalidate();
+//			mainFrame.repaint();
 			
-			// change donation total
-			donationTotal += 5.55;
-			donationLabel.setText(String.format("Donation total: $%.2f", donationTotal));
+			// reset button states
+			candidateButtonStates = new boolean[2];
+			
+			// set up button listener to listen to all buttons in "Cast Vote" window
+			buttonListener = new ChoiceListener();
+			
+			// create main panel for "Cast Vote" screen
+			JPanel castVoteInfoPanel = new JPanel();
+			castVoteInfoPanel.setLayout(new GridLayout(3, 1));
+			
+			// create candidates voting panel
+			JPanel candidateVotingPanel = new JPanel();
+			candidateVotingPanel.setBorder(new TitledBorder(new EtchedBorder(), "Candidates"));
+			// add candidate label to candidate voting panel
+			candidateVotingPanel.add(new JLabel("Candidate:"));
+			// create candidate radio buttons
+			candidateAButton = new JRadioButton(candidateNameA);
+			candidateAButton.addActionListener(buttonListener);
+			candidateBButton = new JRadioButton(candidateNameB);
+			candidateBButton.addActionListener(buttonListener);
+			// add buttons to button group for exclusivity
+			ButtonGroup candidateButtonGroup = new ButtonGroup();
+			candidateButtonGroup.add(candidateAButton);
+			candidateButtonGroup.add(candidateBButton);
+			// add buttons to candidate voting panel
+			candidateVotingPanel.add(candidateAButton);
+			candidateVotingPanel.add(candidateBButton);
+			// add candidates voting panel to main "Cast Vote" info panel
+			castVoteInfoPanel.add(candidateVotingPanel);
 			
 			
-			for(int i = 1; i < 5; ++i)
-				candidatesArr[1].addVote();
-			for(int i = 1; i <= 8; ++i)
-				candidatesArr[0].addVote();
+			// display vote casting info
+			int castVoteResult = JOptionPane.showOptionDialog(mainFrame, castVoteInfoPanel, "Cast Vote",
+			             JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE,
+			             null, options, options[0]);
 			
-			updateCandidateLabels();
-			
-			
-			for(int i = 0; i < propNumber; ++i)
-			{
-				propsArr[i].addYes();
-				propsArr[i].addNo();
-			}			
-			
-			updatePropositionLabels();
-			
-			mainFrame.revalidate();
-			mainFrame.repaint();
+			if (castVoteResult == 0)
+			{				
+				// update candidate votes
+				if (candidateButtonStates[0])
+					candidatesArr[0].addVote();
+				else if (candidateButtonStates[1])
+					candidatesArr[1].addVote();
+				
+				updateCandidateLabels();
+				updatePropositionLabels();
+				
+				mainFrame.revalidate();
+				mainFrame.repaint();
+			}
 			
 			
 			
@@ -95,6 +153,25 @@ public class VotingSystem
 			
 		}
 	}
+	
+	// class to listen to all radio buttons in "Cast Vote" window
+	class ChoiceListener implements ActionListener {
+		public void actionPerformed(ActionEvent event) {
+//						setLabelFont();
+			if (candidateAButton.isSelected())
+			{
+				candidateButtonStates[0] = true;
+				candidateButtonStates[1] = false;
+			}
+			else if (candidateBButton.isSelected())
+			{
+				candidateButtonStates[0] = false;
+				candidateButtonStates[1] = true;
+			}
+		}
+	}
+	
+	
 	
 	class Candidate
 	{
@@ -197,6 +274,8 @@ public class VotingSystem
 	public VotingSystem() 
 	{
 		donationTotal = 0;
+		
+		candidateButtonStates = new boolean[2];
 		
 		// MAKE FIRST ELECTION INFO DIALOG
 		
