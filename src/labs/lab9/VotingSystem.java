@@ -34,6 +34,8 @@ public class VotingSystem
 	static final int FRAME_WIDTH = 500;
 	static final int FRAME_HEIGHT = 800;
 	
+	private JFrame mainFrame;
+	
 	
 	private String electionName;
 	private String candidateNameA;
@@ -61,8 +63,35 @@ public class VotingSystem
 		public void actionPerformed(ActionEvent event)
 		{
 			System.out.println("Cast Vote");
+			
+			// change donation total
 			donationTotal += 5.55;
 			donationLabel.setText(String.format("Donation total: $%.2f", donationTotal));
+			
+			
+			for(int i = 1; i < 5; ++i)
+				candidatesArr[1].addVote();
+			for(int i = 1; i <= 8; ++i)
+				candidatesArr[0].addVote();
+			
+			updateCandidateLabels();
+			
+			
+			for(int i = 0; i < propNumber; ++i)
+			{
+				propsArr[i].addYes();
+				propsArr[i].addNo();
+			}			
+			
+			updatePropositionLabels();
+			
+			mainFrame.revalidate();
+			mainFrame.repaint();
+			
+			
+			
+			
+			
 			
 		}
 	}
@@ -113,6 +142,56 @@ public class VotingSystem
 					yesCount + " votes, NO: " + 
 					noCount + " votes";
 		}
+	}
+	
+	public void updateCandidateLabels()
+	{
+		// update candidate labels with new vote counts
+		for (int i = 0; i < candidateLabels.length; ++i)
+		{
+			candidateLabels[i].setText(candidatesArr[i].toString());
+		}
+		
+		// bold candidate with more votes, or both if tied
+		int votesA = candidatesArr[0].numVotes();
+		int votesB = candidatesArr[1].numVotes();
+		Font candidateFont = candidateLabels[0].getFont();
+		
+		if (votesA >= votesB)
+			candidateLabels[0].setFont(new Font(candidateFont.getName(), Font.BOLD, candidateFont.getSize()));
+		else
+			candidateLabels[0].setFont(new Font(candidateFont.getName(), Font.PLAIN, candidateFont.getSize()));
+		
+		if (votesB >= votesA)
+			candidateLabels[1].setFont(new Font(candidateFont.getName(), Font.BOLD, candidateFont.getSize()));
+		else 
+			candidateLabels[1].setFont(new Font(candidateFont.getName(), Font.PLAIN, candidateFont.getSize()));
+	}
+	
+	public void updatePropositionLabels()
+	{
+		// loop through propositions, set text to update vote counts, and bold appropriate options
+		for (int i = 0; i < propNumber; ++i)
+		{
+			// update yes count
+			propositionLabels[i][1].setText("YES: " + propsArr[i].getYes() + " votes");
+			// update no count
+			propositionLabels[i][2].setText("NO: " + propsArr[i].getNo() + " votes");
+			
+			// bold appropriate label which has more votes, or both if tied
+			Font propFont = propositionLabels[i][0].getFont();
+			if (propsArr[i].getYes() >= propsArr[i].getNo())
+				propositionLabels[i][1].setFont(new Font(propFont.getName(), Font.BOLD, propFont.getSize()));
+			else 
+				propositionLabels[i][1].setFont(new Font(propFont.getName(), Font.PLAIN, propFont.getSize()));
+			
+			if (propsArr[i].getNo() >= propsArr[i].getYes())
+				propositionLabels[i][2].setFont(new Font(propFont.getName(), Font.BOLD, propFont.getSize()));
+			else 
+				propositionLabels[i][2].setFont(new Font(propFont.getName(), Font.PLAIN, propFont.getSize()));
+			
+		}
+		
 	}
 	
 	public VotingSystem() 
@@ -219,7 +298,7 @@ public class VotingSystem
 		 
 		
 		 
-		JFrame mainFrame = new JFrame(); 
+		mainFrame = new JFrame(); 
 		mainFrame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
 		mainFrame.setTitle("Voting System - James Donckels - 88857323");
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -269,10 +348,10 @@ public class VotingSystem
 		candidatesArr[1] = new Candidate(candidateNameB);
 		candidateLabels[0] = new JLabel(candidatesArr[0].toString());
 		candidateLabels[1] = new JLabel(candidatesArr[1].toString());
-		// bold both candidates since initially tied at 0 votes each
-		Font candidateFont = candidateLabels[0].getFont();
-		candidateLabels[0].setFont(new Font(candidateFont.getName(), Font.BOLD, candidateFont.getSize()));
-		candidateLabels[1].setFont(new Font(candidateFont.getName(), Font.BOLD, candidateFont.getSize()));
+		
+		
+		updateCandidateLabels();
+		
 		
 		// add candidate labels to candidate info panel
 		candidateInfoPanel.add(candidateLabels[0]);
@@ -286,6 +365,7 @@ public class VotingSystem
 		propositionInfoPanel.setLayout(new GridLayout(propNumber, 3));
 		// add proposition panel to voting info panel 
 		votingInfoPanel.add(propositionInfoPanel);
+		
 		// initialize proposition array info
 		propositionLabels = new JLabel[propNumber][3];
 		propsArr = new Proposition[propNumber];
@@ -294,19 +374,16 @@ public class VotingSystem
 			propsArr[i] = new Proposition(i + 1);
 			propositionLabels[i][0] = new JLabel("" + (i + 1) + ":");
 			propositionLabels[i][0].setHorizontalAlignment(SwingConstants.CENTER);
-			Font propFont = propositionLabels[i][0].getFont();
 			
 			propositionLabels[i][1] = new JLabel("YES: " + propsArr[i].getYes() + " votes");
-			// bold yes votes since tied with no votes
-			propositionLabels[i][1].setFont(new Font(propFont.getName(), Font.BOLD, propFont.getSize()));
 			propositionLabels[i][2] = new JLabel("NO: " + propsArr[i].getNo() + " votes");
-			// bold no votes since tied with yes votes
-			propositionLabels[i][2].setFont(new Font(propFont.getName(), Font.BOLD, propFont.getSize()));
 			
 			propositionInfoPanel.add(propositionLabels[i][0]);
 			propositionInfoPanel.add(propositionLabels[i][1]);
 			propositionInfoPanel.add(propositionLabels[i][2]);
 		}		
+		
+		updatePropositionLabels();
 		
 		
 		
