@@ -5,9 +5,12 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -43,6 +46,7 @@ public class VotingSystem
 	private String candidateNameA;
 	private String candidateNameB;
 	private int propNumber;
+	
 	private double donationTotal;
 	
 	private JLabel donationLabel;
@@ -62,6 +66,9 @@ public class VotingSystem
 	private ButtonGroup[] propButtonGroups;
 	private boolean propButtonStates[][];
 	
+	private JCheckBox donationCheckBox;
+	private JTextField donationInputField;
+	
 	// class to listen to exit button in file menu
 	class ExitItemListener implements ActionListener {
 		public void actionPerformed(ActionEvent event) {
@@ -73,31 +80,6 @@ public class VotingSystem
 	class VoteListener implements ActionListener {
 		public void actionPerformed(ActionEvent event)
 		{
-//			System.out.println("Cast Vote");
-//			
-//			// change donation total
-//			donationTotal += 5.55;
-//			donationLabel.setText(String.format("Donation total: $%.2f", donationTotal));
-//			
-//			
-//			for(int i = 1; i < 5; ++i)
-//				candidatesArr[1].addVote();
-//			for(int i = 1; i <= 8; ++i)
-//				candidatesArr[0].addVote();
-//			
-//			updateCandidateLabels();
-//			
-//			
-//			for(int i = 0; i < propNumber; ++i)
-//			{
-//				propsArr[i].addYes();
-//				propsArr[i].addNo();
-//			}			
-//			
-//			updatePropositionLabels();
-//			
-//			mainFrame.revalidate();
-//			mainFrame.repaint();
 			
 			// reset button states
 			candidateButtonStates = new boolean[2];
@@ -176,25 +158,25 @@ public class VotingSystem
 				// add ith yes and no buttons to ith propPanel
 				propPanels[i].add(propButtons[i][0]);
 				propPanels[i].add(propButtons[i][1]);
-				
 			}
-			
-			
-			// button construction list
-			// construct buttons
-			// add listeners
-			// construct button group
-			// add buttons to button group
-			// add buttons to panel =========
-			// each prop has 2 buttons, each button has 2 states
-			// so we need a 2d array of props in rows and yes and no buttons in the 2 columns
-			// then we need branches to update states depending on which button is selected
-			// then we need to apply those state changes to the actual propositions once the okay button is clicked
+
 			
 			
 			// create donation input panel 
 			JPanel donationInputPanel = new JPanel();
 			donationInputPanel.setBorder(new TitledBorder(new EtchedBorder(), "Donation:"));
+			// initialize donation check box
+			donationCheckBox = new JCheckBox("I would like to make a donation");
+			// add listener to the donation check box
+			donationCheckBox.addActionListener(buttonListener);
+			// add check box to the donation input panel
+			donationInputPanel.add(donationCheckBox);
+			// initialize donation input text field
+			donationInputField = new JTextField("0.00", 20);
+			donationInputField.setEditable(false);
+			donationInputField.setEnabled(false);
+			// add donation input field to donation input panel
+			donationInputPanel.add(donationInputField);
 			// add donation input panel to main "Cast Vote" info panel
 			castVoteInfoPanel.add(donationInputPanel, BorderLayout.SOUTH);
 			
@@ -205,28 +187,57 @@ public class VotingSystem
 			             null, options, options[0]);
 			
 			if (castVoteResult == 0)
-			{				
-				// update candidate votes
-				if (candidateButtonStates[0]) // a was selected
-					candidatesArr[0].addVote();
-				else if (candidateButtonStates[1]) // b was selected
-					candidatesArr[1].addVote();
+			{		
+				boolean error = false;
 				
-				updateCandidateLabels();
-				
-				
-				// update proposition vote totals
-				// loop through each proposition and check if it was voted for
-				for (int i = 0; i < propNumber; ++i)
+				// if the donation box was checked but there was invalid input, give an error dialog
+				if (donationCheckBox.isSelected())
 				{
-					// add votes to the appropriate proposition selections
-					if (propButtonStates[i][0]) // yes is selected for the ith prop
-						propsArr[i].addYes();
-					else if (propButtonStates[i][1]) // no is selected for the ith prop
-						propsArr[i].addNo();
-				}				
+					try {
+						double newDonation = Double.parseDouble(donationInputField.getText());
+						if (newDonation < 0) throw new Exception("donations can't be negative");
+						
+						// if we reach here we know our donation is valid and can be added to the total
+						if (newDonation > 0)
+						{
+							donationTotal += newDonation;
+							BigDecimal result = new BigDecimal(donationTotal).setScale(2, RoundingMode.DOWN);
+							donationLabel.setText(String.format("Donation total: $%.2f", result));
+						}
+						
+					}
+					catch (Exception e)
+					{
+						error = true;
+						JOptionPane.showMessageDialog(mainFrame, "Please enter a valid donation amount",
+								"Error", JOptionPane.ERROR_MESSAGE);
+					}
+				}
 				
-				updatePropositionLabels();
+				if (!error)
+				{
+					// update candidate votes
+					if (candidateButtonStates[0]) // a was selected
+						candidatesArr[0].addVote();
+					else if (candidateButtonStates[1]) // b was selected
+						candidatesArr[1].addVote();
+					
+					updateCandidateLabels();
+					
+					
+					// update proposition vote totals
+					// loop through each proposition and check if it was voted for
+					for (int i = 0; i < propNumber; ++i)
+					{
+						// add votes to the appropriate proposition selections
+						if (propButtonStates[i][0]) // yes is selected for the ith prop
+							propsArr[i].addYes();
+						else if (propButtonStates[i][1]) // no is selected for the ith prop
+							propsArr[i].addNo();
+					}				
+					
+					updatePropositionLabels();
+				}
 				
 				
 				mainFrame.revalidate();
@@ -244,7 +255,6 @@ public class VotingSystem
 	// class to listen to all radio buttons in "Cast Vote" window
 	class ChoiceListener implements ActionListener {
 		public void actionPerformed(ActionEvent event) {
-//						setLabelFont();
 			if (candidateAButton.isSelected())
 			{
 				candidateButtonStates[0] = true;
@@ -270,6 +280,23 @@ public class VotingSystem
 					propButtonStates[i][0] = false;
 					propButtonStates[i][1] = true;
 				}
+			}
+			
+			// whenever a button on the "Cast Vote" screen is clicked, this will update
+			// we want to see whether the donation box is checked or not
+			if (donationCheckBox.isSelected())
+			{
+				// when the box is checked, we want to enable the input field so the user can write in donations
+				donationInputField.setEnabled(true);
+				donationInputField.setEditable(true);
+			}
+			else if (!donationCheckBox.isSelected())
+			{
+				// when the box is unchecked, leave it grayed out and disabled
+				donationInputField.setEditable(false);
+				donationInputField.setEnabled(false);
+				// put placeholder input back to 0.00 
+				donationInputField.setText("0.00");
 			}
 			
 			
@@ -431,7 +458,11 @@ public class VotingSystem
 		electionInfoPanel.add(numPropsSubPanel);
 		
 		
-	
+		// create frame for main voting window
+		mainFrame = new JFrame(); 
+		mainFrame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
+		mainFrame.setTitle("Voting System - James Donckels - 88857323");
+		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		
 		
@@ -442,16 +473,11 @@ public class VotingSystem
 		do {
 		
 		// display election info dialog, and reprompt if fields left blank
-		int electionInfoResult = JOptionPane.showOptionDialog(null, electionInfoPanel, "Election Info",
+		int electionInfoResult = JOptionPane.showOptionDialog(mainFrame, electionInfoPanel, "Election Info",
 		             JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE,
 		             null, options, options[0]);
 		 
 		 if (electionInfoResult == 1 || electionInfoResult == -1) System.exit(0);
-		 
-		 System.out.println("checkpoint 2");
-		 
-		 
-		 System.out.println("dialog: " + electionInfoResult);
 		 
 		 electionName = electionNameField.getText().trim();
 		 candidateNameA = candidateANameField.getText().trim();
@@ -465,27 +491,6 @@ public class VotingSystem
 		 
 		} while (!validElectionInput);
 		
-		
-		
-		
-		
-		 
-		 String input = electionName + "\n" + candidateNameA + "\n" + candidateNameB + "\n" + propNumber;
-		 System.out.println(input);
-		 
-		 System.out.println("Checkpoint 3");
-		 
-		 
-		 
-		 
-		// create frame for main voting window
-		 
-		
-		 
-		mainFrame = new JFrame(); 
-		mainFrame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
-		mainFrame.setTitle("Voting System - James Donckels - 88857323");
-		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		// add the file menu with exit button to the frame
 		// create menu bar
@@ -618,44 +623,16 @@ public class VotingSystem
 		notesInfoPanel.add(castVoteButton);
 		
 		
-		
-		
-		
-		
-		
-		
-		
 		mainFrame.add(mainPanel);
 		mainFrame.setVisible(true);
-		 
-		 
-		 
 	}
 	
 	
 	
 	
 	public static void main (String[] args)
-	{
-		
-		
-		System.out.println("voting system");
-		
+	{		
 		VotingSystem lab9 = new VotingSystem();
-		
-		
-		
-		
-		
-		
-		 
-		
-		 
-		 
-		
-
-		
-		System.out.println("end program");
 	}
 	
 }
