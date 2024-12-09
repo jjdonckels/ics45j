@@ -24,23 +24,7 @@ public class NetflixTitlesStats {
 	 * @return	a list that contains the title with the shortest non-zero runtime 
 	 * in the Stream (or multiple if there are > 1)
 	 */
-	public static List<NetflixTitle> problem1_shortestRuntime(Stream<NetflixTitle> titles) {
-		
-//		Stream<NetflixTitle> s1 = titles.sorted((a, b) -> a.getRuntime() - b.getRuntime()); // sort by runtime
-//		
-//		Stream<NetflixTitle> s2 = titles.sorted((a, b) -> a.getTitle().compareTo(b.getTitle())); // sort by title
-//		
-//		NetflixTitle[] shortestTitle = s1.filter(t -> t.getRuntime() > 0)
-//				.limit(1)
-//				.toArray(NetflixTitle[]::new);
-//		
-//		if (shortestTitle[0] == null) return new ArrayList<NetflixTitle>();
-//		
-//		int minRuntime = shortestTitle[0].getRuntime();
-//		
-//		return s2.filter(t -> t.getRuntime() == minRuntime)
-//				.collect(Collectors.toList());
-		
+	public static List<NetflixTitle> problem1_shortestRuntime(Stream<NetflixTitle> titles) {		
 		Map<Integer, List<NetflixTitle>>  groups = new TreeMap<>();
 		groups = titles
 				.filter(t -> t.getRuntime() > 0) // filter out non-zero runtimes
@@ -49,44 +33,24 @@ public class NetflixTitlesStats {
 						t -> t.getRuntime())); // get keys based off runtime
 		
 		// now we have a map that maps runtime to a list of titles with that runtime
-		// we want to get the list with the smallest non-zero runtime
+		// we want to get the list with the smallest runtime
 		
-		// we can traverse the key set to find the smallest one that's non-zero
-		Set<Integer> keys = groups.keySet();
+		// we can traverse the key set and put all keys in an array list
+		// the smallest key in the array list is the one we want
+		Set<Integer> keys = groups.keySet();		
 		ArrayList<Integer> keyList = new ArrayList<>();
 		
-		// add each key to the arraylist
+		// add each key to the array list
 		for (int key : keys)
 			keyList.add(key);
 		
+		// case for empty keys meaning map was empty after processing stream
 		if (keyList.isEmpty()) return new ArrayList<NetflixTitle>(); // return empty list of titles
 		
-		// sort arraylist
+		// sort array list so smallest key is at front
 		Collections.sort(keyList);
 		
-		if (keyList.get(0) == 0)
-			return groups.get(keyList.get(1)); // return the list mapped to the next smallest key after 0
-		else
-			return groups.get(keyList.get(0)); // returns the list mapped to the smallest key if the first key isn't 0
-				
-		
-		
-//		NetflixTitle shortest =  titles.filter(t -> t.getRuntime() > 0) // filter out non-zero runtimes
-//				.sorted((a, b) -> a.getRuntime() - b.getRuntime()) // sort by shortest runtime
-//				.findFirst() // get the first title with shortest runtime
-//				.orElse(null); // edge case of empty stream
-//		
-//		if (shortest == null)
-//			return null;
-//		
-//		int minRuntime = shortest.getRuntime();
-//		
-//		// if shortest title is not null, filter the stream for all titles equal to the shortest
-//		// and return a list of them
-//		return titles.filter(t -> t.getRuntime() == minRuntime) // only keep min runtime titles
-//				.sorted((a, b) -> a.getTitle().compareTo(b.getTitle())) // sort the remaining titles by title
-//				.collect(Collectors.toList()); // collect results into a list 
-				
+		return groups.get(keyList.get(0)); // return the list mapped to the smallest non-zero key
 	}
 	
 	
