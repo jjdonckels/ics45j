@@ -62,7 +62,15 @@ public class NetflixTitlesStats {
 	 * @return	the most number of genres in one title
 	 */
 	public static int problem2_mostGenresInOneTitle(Stream<NetflixTitle> titles) {
-		return -1; // FIX ME
+		NetflixTitle[] result = titles
+				.sorted((a, b) -> b.getGenres().size() - a.getGenres().size()) // sort by most genres
+				.limit(1)
+				.toArray(NetflixTitle[]::new);
+		
+		// result should hold the title with the most genres, so now we can return the
+		// number of genres from that title
+		if (result.length == 0) return 0; // case for empty stream and no results
+		return result[0].getGenres().size();
 	}
 	
 	
