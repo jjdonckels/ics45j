@@ -179,7 +179,18 @@ public class NetflixTitlesStats {
 	 * @return	the average number of (non-zero, non-blank) seasons of NetflixTitles in the stream
 	 */
 	public static double problem7_getAverageNumSeasons(Stream<NetflixTitle> titles) {
-		return -1; // FIX ME
+		Map<Boolean, Double> averages = titles.filter(t -> t.getNumSeasons() > 0) // filter out blank and zero season titles
+				.collect(Collectors.groupingBy( t -> 
+				t.getNumSeasons() > 0, // group everything into true in the map
+						Collectors.averagingInt(NetflixTitle::getNumSeasons))); // average the number of seasons
+		
+		// case for empty stream and 0 average
+		if (averages.isEmpty()) return 0; 
+		
+		return averages.get(Boolean.TRUE);
+		
+		// we now have an array of integers holding the number of seasons for each element
+		
 	}
 	
 	
