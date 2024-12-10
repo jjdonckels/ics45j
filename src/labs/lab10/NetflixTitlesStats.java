@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.TreeMap;
+import java.util.TreeSet;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -135,7 +136,14 @@ public class NetflixTitlesStats {
 	 * the stream, sorted in ascending lexicographic order
 	 */
 	public static String problem5_getGenres(Stream<NetflixTitle> titles) {
-		return ""; // FIX ME
+//		// a tree set will keep the genres in order and ignore duplicates
+//		Set<String> genreSet = new TreeSet<>();
+//		
+//		titles.map(t -> t.getGenres()) // map the titles to their genre lists
+//			.distinct() // remove duplicates
+//			.map(a -> a.toString()) // map each list to its string representation
+//			.map(a -> a.replaceAll("[", ""))
+		return "";			
 	}
 	
 	
@@ -149,7 +157,16 @@ public class NetflixTitlesStats {
 	 * @return	the most popular title (based on IMDB score) in the stream
 	 */
 	public static Optional<NetflixTitle> problem6_getMostPopularTitle(Stream<NetflixTitle> titles) {
-		return null; // FIX ME
+		return titles.sorted((a, b) -> compareDoubles(a.getImdbScore(), b.getImdbScore())) // sort by highest imdb score
+				.findFirst();
+	}
+	
+	// meant to sort doubles greatest to least, a > b returns -1, a < b returns 1, else return 0
+	private static int compareDoubles(double a, double b)
+	{
+		if (a < b) return 1;
+		else if (a > b) return -1;
+		else return 0;
 	}
 	
 	
