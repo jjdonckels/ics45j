@@ -245,6 +245,37 @@ public class NetflixTitlesStats {
 	 * @return	the number of duplicate NetflixTitles
 	 */
 	public static long problem10_countDuplicateTitles(Stream<NetflixTitle> titles) {
-		return -1; // FIX ME
+		
+		Map<String, Long> titleCounts = titles.sorted((a, b) -> a.getTitle().compareTo(b.getTitle())) // sort by title
+				.collect(Collectors.groupingBy(
+						t -> t.getTitle().toLowerCase(), 
+						Collectors.counting()));
+		
+		// case for empty stream and thus no duplicates
+		if (titleCounts.isEmpty()) return 0;
+		
+//		long total = 0;
+		
+		// we now have a map that maps titles to the number of elements with that title
+		// if we go through the map and add up the numbers, we should have our answer
+		Set<String> keySet = titleCounts.keySet();
+		
+		Stream<String> keyStream = keySet.stream();
+		Map<Boolean, Long> result = keyStream.map(s -> titleCounts.get(s) - 1) // map the keys to the number of duplicates
+				.collect(Collectors.groupingBy( e -> e > 0, Collectors.counting())); // put count of duplicates into map
+		
+		
+		// case where no duplicates were found but stream wasn't empty
+		if (result.get(Boolean.TRUE) == null)
+			return 0;
+		
+		return result.get(Boolean.TRUE);
+		
+		
+//		for (String key : keySet)
+//			total += (titleCounts.get(key) - 1);
+//		
+//		return total;
+				
 	}
 }
