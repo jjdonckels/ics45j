@@ -187,10 +187,7 @@ public class NetflixTitlesStats {
 		// case for empty stream and 0 average
 		if (averages.isEmpty()) return 0; 
 		
-		return averages.get(Boolean.TRUE);
-		
-		// we now have an array of integers holding the number of seasons for each element
-		
+		return averages.get(Boolean.TRUE);		
 	}
 	
 	
@@ -206,7 +203,10 @@ public class NetflixTitlesStats {
 	 */
 	public static List<String> problem8_getTitlesReleasedInYears(Stream<NetflixTitle> titles,
 			int minYear, int maxYear) {
-		return null; // FIX ME
+		return titles.filter(t -> t.getReleaseYear() >= minYear && t.getReleaseYear() <= maxYear) // filter by time frame
+				.sorted((a, b) -> a.getTitle().compareTo(b.getTitle())) // sort in title order
+				.map(t -> t.getTitle()) // map title objects to title names
+				.collect(Collectors.toList());
 	}
 	
 	
