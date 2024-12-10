@@ -77,11 +77,16 @@ public class NetflixTitlesStats {
 	 * of titles produced in that country
 	 */
 	public static Map<String, Long> problem3_countTitlesByProductionCountry(Stream<NetflixTitle> titles) {
-//		Map<String, List<String>> titleCountryListMap = titles
-//				.map(t -> t.getProductionCountries().stream()) // map to a stream of country list streams
-//				.
-		return null;
-				
+		
+		// we want to take all the production countries that each title has in it, count them, and put them in a 
+		// map where the country's name is mapped to its count
+		
+		return titles
+				.flatMap(t -> t.getProductionCountries().stream()) // create a stream where each element is a production country
+				.sorted() // sort by country name
+				.collect(Collectors.groupingBy( 
+						t -> t, 
+						Collectors.counting()));
 	}
 	
 	
