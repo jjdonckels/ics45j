@@ -90,7 +90,11 @@ public class NetflixTitlesStats {
 	 * of titles produced in that country
 	 */
 	public static Map<String, Long> problem3_countTitlesByProductionCountry(Stream<NetflixTitle> titles) {
-		return null; // FIX ME
+//		Map<String, List<String>> titleCountryListMap = titles
+//				.map(t -> t.getProductionCountries().stream()) // map to a stream of country list streams
+//				.
+		return null;
+				
 	}
 	
 	
@@ -103,7 +107,22 @@ public class NetflixTitlesStats {
 	 * @return	percentage of the titles in the stream are of the given genre
 	 */
 	public static double problem4_getPercentageOfGenre(Stream<NetflixTitle> titles, String genre) {
-		return -1; // FIX ME
+		// we can map the titles to a boolean of whether the title contains the genre and put that in an array
+		Boolean[] results = titles
+				.map(t -> t.getGenres().contains(genre))
+				.toArray(Boolean[]::new);
+		
+		// check for empty stream
+		if (results.length == 0) return 0;
+		
+		// we can make a stream out of the boolean array and count how many true entries are in it
+		// then get a percentage of the total from that
+		
+		long numTrue = Stream.of(results)
+				.filter(b -> b == true)
+				.count();
+		
+		return (numTrue / (double) results.length) * 100.0 ;
 	}
 	
 	/**
