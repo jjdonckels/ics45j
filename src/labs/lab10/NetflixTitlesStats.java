@@ -224,7 +224,15 @@ public class NetflixTitlesStats {
 	 */
 	public static NetflixTitle problem9_getFirstTitleContainingStringInDescription(Stream<NetflixTitle> titles,
 			String str) {
-		return null; // FIX ME
+		NetflixTitle[] result = titles.sorted((a, b) -> a.getTitle().compareTo(b.getTitle())) // sort in title order
+				.filter(t -> t.getDescription().toLowerCase().contains(str.toLowerCase())) // filter by titles containing target string
+				.limit(1)
+				.toArray(NetflixTitle[]::new);
+		
+		// case for no result
+		if (result.length == 0) return null;
+		
+		return result[0];
 	}
 	
 	
