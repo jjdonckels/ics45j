@@ -25,33 +25,19 @@ public class NetflixTitlesStats {
 	 * @return	a list that contains the title with the shortest non-zero runtime 
 	 * in the Stream (or multiple if there are > 1)
 	 */
-	public static List<NetflixTitle> problem1_shortestRuntime(Stream<NetflixTitle> titles) {		
-		Map<Integer, List<NetflixTitle>>  groups = new TreeMap<>();
-		groups = titles
-				.filter(t -> t.getRuntime() > 0) // filter out non-zero runtimes
-				.sorted((a, b) -> a.getTitle().compareTo(b.getTitle())) // sort alphabetically
-				.collect(Collectors.groupingBy(
-						t -> t.getRuntime())); // get keys based off runtime
+	public static List<NetflixTitle> problem1_shortestRuntime(Stream<NetflixTitle> titles) {
+		Map<Integer, List<NetflixTitle>> result = titles.filter(t -> t.getRuntime() > 0) // filter out non-zero runtimes
+				.sorted((a, b) -> a.getTitle().compareTo(b.getTitle())) // sort by title
+				.collect(Collectors.groupingBy(t -> t.getRuntime()));
 		
-		// now we have a map that maps runtime to a list of titles with that runtime
-		// we want to get the list with the smallest runtime
+		// we now have a map that maps runtime to lists of NetflixTitle objects
 		
-		// we can traverse the key set and put all keys in an array list
-		// the smallest key in the array list is the one we want
-		Set<Integer> keys = groups.keySet();		
-		ArrayList<Integer> keyList = new ArrayList<>();
+		// case for empty stream and empty map
+		if (result.isEmpty()) return new ArrayList<NetflixTitle>();
 		
-		// add each key to the array list
-		for (int key : keys)
-			keyList.add(key);
-		
-		// case for empty keys meaning map was empty after processing stream
-		if (keyList.isEmpty()) return new ArrayList<NetflixTitle>(); // return empty list of titles
-		
-		// sort array list so smallest key is at front
-		Collections.sort(keyList);
-		
-		return groups.get(keyList.get(0)); // return the list mapped to the smallest non-zero key
+		// we can find the smallest key for our map and return the list that it maps to
+		int minKey = Collections.min(result.keySet());
+		return result.get(minKey);
 	}
 	
 	
@@ -254,7 +240,6 @@ public class NetflixTitlesStats {
 		// case for empty stream and thus no duplicates
 		if (titleCounts.isEmpty()) return 0;
 		
-//		long total = 0;
 		
 		// we now have a map that maps titles to the number of elements with that title
 		// if we go through the map and add up the numbers, we should have our answer
@@ -270,12 +255,6 @@ public class NetflixTitlesStats {
 			return 0;
 		
 		return result.get(Boolean.TRUE);
-		
-		
-//		for (String key : keySet)
-//			total += (titleCounts.get(key) - 1);
-//		
-//		return total;
 				
 	}
 }
