@@ -26,6 +26,7 @@ public class NetflixTitlesStats {
 	 * in the Stream (or multiple if there are > 1)
 	 */
 	public static List<NetflixTitle> problem1_shortestRuntime(Stream<NetflixTitle> titles) {
+		
 		Map<Integer, List<NetflixTitle>> result = titles.filter(t -> t.getRuntime() > 0) // filter out non-zero runtimes
 				.sorted((a, b) -> a.getTitle().compareTo(b.getTitle())) // sort by title
 				.collect(Collectors.groupingBy(t -> t.getRuntime()));
@@ -49,6 +50,7 @@ public class NetflixTitlesStats {
 	 * @return	the most number of genres in one title
 	 */
 	public static int problem2_mostGenresInOneTitle(Stream<NetflixTitle> titles) {
+		
 		NetflixTitle[] result = titles
 				.sorted((a, b) -> b.getGenres().size() - a.getGenres().size()) // sort by most genres
 				.limit(1)
@@ -127,14 +129,27 @@ public class NetflixTitlesStats {
 	 * the stream, sorted in ascending lexicographic order
 	 */
 	public static String problem5_getGenres(Stream<NetflixTitle> titles) {
-//		// a tree set will keep the genres in order and ignore duplicates
-//		Set<String> genreSet = new TreeSet<>();
-//		
-//		titles.map(t -> t.getGenres()) // map the titles to their genre lists
-//			.distinct() // remove duplicates
-//			.map(a -> a.toString()) // map each list to its string representation
-//			.map(a -> a.replaceAll("[", ""))
-		return "";			
+		
+		// we can put all the genres in a list in a map, and then return that list
+		Map<Boolean, List<String>> result = titles
+				.flatMap(t -> t.getGenres().stream()) // create a stream of all the genres
+				.sorted() // sort the genres by name
+				.distinct() // remove duplicates
+				.collect(Collectors.groupingBy(
+						g -> g.isEmpty(),
+						Collectors.toList()));
+		
+		// case for blank map
+		if (result.isEmpty()) return "";
+		
+		// case for blank genres
+		if (result.get(Boolean.FALSE) == null) return "";
+		
+		// now all the genres should be grouped into a single list in the map under the Boolean.FALSE key
+		// we can now return the string representation of that list without the brackets
+		String resultStr = result.get(Boolean.FALSE).toString(); // get the string representation of the list
+		// remove the brackets from the string representation of the list and return it
+		return resultStr.substring(1, resultStr.length() - 1);
 	}
 	
 	
@@ -148,6 +163,7 @@ public class NetflixTitlesStats {
 	 * @return	the most popular title (based on IMDB score) in the stream
 	 */
 	public static Optional<NetflixTitle> problem6_getMostPopularTitle(Stream<NetflixTitle> titles) {
+		
 		return titles.sorted((a, b) -> compareDoubles(a.getImdbScore(), b.getImdbScore())) // sort by highest imdb score
 				.findFirst();
 	}
@@ -170,6 +186,7 @@ public class NetflixTitlesStats {
 	 * @return	the average number of (non-zero, non-blank) seasons of NetflixTitles in the stream
 	 */
 	public static double problem7_getAverageNumSeasons(Stream<NetflixTitle> titles) {
+		
 		Map<Boolean, Double> averages = titles.filter(t -> t.getNumSeasons() > 0) // filter out blank and zero season titles
 				.collect(Collectors.groupingBy( t -> 
 				t.getNumSeasons() > 0, // group everything into true in the map
@@ -194,6 +211,7 @@ public class NetflixTitlesStats {
 	 */
 	public static List<String> problem8_getTitlesReleasedInYears(Stream<NetflixTitle> titles,
 			int minYear, int maxYear) {
+		
 		return titles.filter(t -> t.getReleaseYear() >= minYear && t.getReleaseYear() <= maxYear) // filter by time frame
 				.sorted((a, b) -> a.getTitle().compareTo(b.getTitle())) // sort in title order
 				.map(t -> t.getTitle()) // map title objects to title names
@@ -215,6 +233,7 @@ public class NetflixTitlesStats {
 	 */
 	public static NetflixTitle problem9_getFirstTitleContainingStringInDescription(Stream<NetflixTitle> titles,
 			String str) {
+		
 		NetflixTitle[] result = titles.sorted((a, b) -> a.getTitle().compareTo(b.getTitle())) // sort in title order
 				.filter(t -> t.getDescription().toLowerCase().contains(str.toLowerCase())) // filter by titles containing target string
 				.limit(1)
